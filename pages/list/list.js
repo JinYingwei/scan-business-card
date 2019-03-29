@@ -154,7 +154,7 @@ Page({
 			method: 'GET',
 			data: {
 				openId: data.openId,
-				cardName: data.formItem.cardName
+				cardName: ''
 			},
 			success(res) {
 				let cardListInfo = res.data.data.data.key

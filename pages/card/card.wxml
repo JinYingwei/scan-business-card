@@ -13,7 +13,7 @@
 				<view class='card-logo-box'>
 					<image class='card-logo' src='{{formItem.cardImgUrl}}'></image>
 					<view class="btnBox">
-						<button type='default' class='export' bindtap="exportCard" size='mini'>导 出</button>
+						<button type='default' class='export' open-type="getUserInfo" bindtap="exportCard" size='mini'>导 出</button>
 						<button type='default' size='mini' class='open' bindtap="openProgress">
 							<!-- <image class='open-logo' src='http://ii.sinelinked.com/miniProgramAssets/card-lg.png'></image> -->
 							柳梢声声
@@ -68,7 +68,7 @@
 			</view>
 		</view>
 		<view class='footer'>
-			<button type='primary'>保 存</button>
+			<button type='primary' bindtap="onSave">保 存</button>
 			<!-- <button type='default' class='export' bindtap="exportCard" size='mini'>导 出</button>
 			<button type='primary' size='mini' class='open' bindtap="openProgress">
 				<image class='open-logo' src='http://ii.sinelinked.com/miniProgramAssets/card-lg.png'></image>
@@ -76,7 +76,7 @@
 			</button> -->
 		</view>
 		<!-- mask -->
-		<view class="mask" wx:if="{{mask}}" animation="{{animationData}}">
+		<!-- <view class="mask" wx:if="{{mask}}" animation="{{animationData}}">
 			<view class="maskBox">
 				<view class="box">
 					导出到通讯录
@@ -96,6 +96,6 @@
 			<view class="hide-x" bindtap="handleClose">
 				<image class="card-close" src="http://ii.sinelinked.com/miniProgramAssets/close-circle.png"></image>
 			</view>
-		</view>
+		</view> -->
 	</view>
 </view>

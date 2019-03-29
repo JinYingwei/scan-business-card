@@ -14,7 +14,7 @@ Page({
 		cardId: '',
 		tel:'',//存手机号
 		id:'',	//用来确保是修改还是添加的id
-		animationData: {}
+		onOff:false
 	},
 	onLoad: function(options) {
 		this.data.cardId = options.id
@@ -125,6 +125,7 @@ Page({
 			},
 			success(res) {
 				if (res.data.code == 0) {
+					This.data.onOff = true
 					wx.showToast({
 						title: '保存成功',
 						icon: 'success',
@@ -135,132 +136,22 @@ Page({
 		})
 	},
 	//选择通讯录
-	handleBookClick(){
-		this.setData({
-			exportBook:	false,
-			exportCard: true
-		})
-		//选中通讯录
-		if(!this.data.exportBook){
-			//通讯录
-			let cardData = this.data.formItem
-			//通讯录手机号
-			let phoneNumber = cardData.telCell.slice(0,cardData.telCell.length-1)
-		
-			// 导出通讯录
-			wx.addPhoneContact({
-				firstName : cardData.cardName.slice(1),
-				lastName: cardData.cardName.slice(0,1),
-				mobilePhoneNumber : phoneNumber,
-				success(res){
-					wx.showToast({
-						title: '导出通讯录成功',
-						icon: 'success',
-						duration: 1000
-					})
-				}
-			})
-		}
-	},
-	// 选择通用名片
-	handleCardClick(){
-		this.setData({
-			exportCard:	false,
-			exportBook: true
-		})
-		let This = this
-		//选中通用名片
-		if(!this.data.exportCard){
-			let code = '';
-			wx.login({
-				success(res){
-					if(res.code){
-						code = res.code
-						wx.getSetting({
-							success(res) {
-								if (res.authSetting['scope.userInfo']) {
-									// 已经授权，可以直接调用 getUserInfo 获取头像昵称
-									let iv = '',
-										encryptedData;
-									wx.getUserInfo({
-										success(res) {
-											console.log(res)
-											iv = res.iv
-											encryptedData = res.encryptedData
-											//拿unionId
-											wx.request({
-												url: utils.baseURL + '/card/scan/decodeOpenId',
-												method: 'GET',
-												data: {
-													encryptedData,
-													iv,
-													code: code
-												},
-												success(res) {			
-													let unionId = res.data.data.unionId
-													wx.request({
-														url: utils.baseURL + '/card/scan/export/touniversal',
-														method: 'POST',
-														data: {
-															unionId,
-															// unionId: 'oeSpI6PPQtVcCDLr54BWE5wlwU5Y',
-															tel: This.data.formItem.telCell
-														},
-														success(res){
-															//导出通用名片
-															if (res.data.code == 0) {
-																wx.showToast({
-																	title: '导出通用名片成功',
-																	icon: 'success',
-																	duration: 1000
-																})
-															}else{
-																wx.showToast({
-																	title: '尚未注册通用名片，导出失败',
-																	icon: 'none',
-																	duration: 1000
-																})
-															}
-															console.log(res);
-														},
-													})
-												}
-											})
-										}
-									})
-								}
-							}
-						})
-					}else{
-						console.log('登录失败' + res.errMsg);
-					}
-				}
-			})
-		}
-	},
-	//关闭遮罩层
-	handleClose(){
-		this.setData({
-			mask: false,
-			exportCard:	true,
-			exportBook:	true,
-		})
-	},
-	//导出
-	exportCard() {
-		this.setData({
-			mask: true
-		})
-		//选中通讯录
+// 	handleBookClick(){
+// 		this.setData({
+// 			exportBook:	false,
+// 			exportCard: true
+// 		})
+// 		//选中通讯录
 // 		if(!this.data.exportBook){
 // 			//通讯录
 // 			let cardData = this.data.formItem
 // 			//通讯录手机号
 // 			let phoneNumber = cardData.telCell.slice(0,cardData.telCell.length-1)
-// 
+// 		
 // 			// 导出通讯录
 // 			wx.addPhoneContact({
-// 				firstName : cardData.cardName,
+// 				firstName : cardData.cardName.slice(1),
+// 				lastName: cardData.cardName.slice(0,1),
 // 				mobilePhoneNumber : phoneNumber,
 // 				success(res){
 // 					wx.showToast({
@@ -271,6 +162,14 @@ Page({
 // 				}
 // 			})
 // 		}
+// 	},
+// 	// 选择通用名片
+// 	handleCardClick(){
+// 		this.setData({
+// 			exportCard:	false,
+// 			exportBook: true
+// 		})
+// 		let This = this
 // 		//选中通用名片
 // 		if(!this.data.exportCard){
 // 			let code = '';
@@ -298,9 +197,7 @@ Page({
 // 													iv,
 // 													code: code
 // 												},
-// 												success(res) {
-// 													console.log(res);
-// 													
+// 												success(res) {			
 // 													let unionId = res.data.data.unionId
 // 													wx.request({
 // 														url: utils.baseURL + '/card/scan/export/touniversal',
@@ -318,8 +215,15 @@ Page({
 // 																	icon: 'success',
 // 																	duration: 1000
 // 																})
+// 															}else{
+// 																wx.showToast({
+// 																	title: '尚未注册通用名片，导出失败',
+// 																	icon: 'none',
+// 																	duration: 1000
+// 																})
 // 															}
-// 														}
+// 															console.log(res);
+// 														},
 // 													})
 // 												}
 // 											})
@@ -334,86 +238,116 @@ Page({
 // 				}
 // 			})
 // 		}
-// 		let code = '';
-// 		wx.login({
-// 			success(res) {
-// 				if (res.code) {
-// 					code = res.code
-// 					console.log(res);
-// 				} else {
-// 					console.log('登录失败！' + res.errMsg)
-// 				}
-// 			}
+// 	},
+	//关闭遮罩层
+// 	handleClose(){
+// 		this.setData({
+// 			mask: false,
+// 			exportCard:	true,
+// 			exportBook:	true,
 // 		})
-// 		let This = this
-// 		wx.getSetting({
-// 			success(res) {
-// 				if (res.authSetting['scope.userInfo']) {
-// 					// 已经授权，可以直接调用 getUserInfo 获取头像昵称
-// 					let iv = '',
-// 						encryptedData;
-// 					wx.getUserInfo({
-// 						success(res) {
-// 							console.log(res)
-// 							iv = res.iv
-// 							encryptedData = res.encryptedData
-// 							//拿unionId
-// 							wx.request({
-// 								url: utils.baseURL + '/card/scan/decodeOpenId',
-// 								method: 'GET',
-// 								data: {
-// 									encryptedData,
-// 									iv,
-// 									code: code
-// 								},
-// 								success(res) {
-// 									console.log(res);
-// 									
-// 									let unionId = res.data.data.unionId
-// 									wx.request({
-// 										url: utils.baseURL + '/card/scan/export/touniversal',
-// 										method: 'POST',
-// 										data: {
-// 											unionId,
-// 											// unionId: 'oeSpI6PPQtVcCDLr54BWE5wlwU5Y',
-// 											tel: This.data.formItem.telCell
-// 										},
-// 										success(res) {	
-// 											//通讯录
-// 											let cardData = This.data.formItem
-// 											//通讯录手机号
-// 											let phoneNumber = cardData.telCell.slice(0,cardData.telCell.length-1)
-// 					
-// 											// 导出通讯录
-// 											wx.addPhoneContact({
-// 												firstName : cardData.cardName,
-// 												mobilePhoneNumber : phoneNumber,
-// 												success(res){
-// 													wx.showToast({
-// 														title: '导出通讯录成功',
-// 														icon: 'success',
-// 														duration: 1000
-// 													})
-// 												}
-// 											})
-// 											
-// 											//导出通用名片
-// 											if (res.data.code == 0) {
-// 												wx.showToast({
-// 													title: '导出通用名片成功',
-// 													icon: 'success',
-// 													duration: 1000
-// 												})
-// 											}
-// 										}
-// 									})
-// 								}
-// 							})
-// 						}
-// 					})
-// 				} 
-// 			}
-// 		})
+// 	},
+
+	//添加手机通讯录联系人
+	addressBook(){
+		let cardData = this.data.formItem
+		let phoneNumber = cardData.telCell.slice(0,cardData.telCell.length-1)
+		
+		wx.addPhoneContact({
+			firstName: cardData.cardName.slice(1,cardData.cardName.length),
+			lastName: cardData.cardName.slice(0,1),
+			mobilePhoneNumber : phoneNumber,
+			success(res){
+				wx.showToast({
+					title: '导出通讯录成功',
+					icon: 'success',
+					duration: 1000
+				})
+			}
+		})
+	},
+	
+	//导出到通用名片系统
+	universalCard(){
+		let This = this
+		let code = '';
+		wx.login({
+			success(res){
+				if(res.code){
+					code = res.code
+					wx.getSetting({
+						success(res) {
+							if (res.authSetting['scope.userInfo']) {
+								// 已经授权，可以直接调用 getUserInfo 获取头像昵称
+								let iv = '',
+									encryptedData;
+								wx.getUserInfo({
+									success(res) {
+										console.log(res)
+										iv = res.iv
+										encryptedData = res.encryptedData
+										//拿unionId
+										wx.request({
+											url: utils.baseURL + '/card/scan/decodeOpenId',
+											method: 'GET',
+											data: {
+												encryptedData,
+												iv,
+												code: code
+											},
+											success(res) {
+												console.log(res);
+												
+												let unionId = res.data.data.unionId
+												wx.request({
+													url: utils.baseURL + '/card/scan/export/touniversal',
+													method: 'POST',
+													data: {
+														unionId,
+														// unionId: 'oeSpI6PPQtVcCDLr54BWE5wlwU5Y',
+														tel: This.data.formItem.telCell
+													},
+													success(res){
+														//导出通用名片
+														if (res.data.code == 0) {
+															wx.showToast({
+																title: '导出通用名片成功',
+																icon: 'success',
+																duration: 1000
+															})
+														}else{
+															wx.showToast({
+																title: '您还未注册通用名片，导入失败',
+																icon: 'success',
+																duration: 1000
+															})
+														}
+													}
+												})
+											}
+										})
+									}
+								})
+							}
+						}
+					})
+				}
+			}
+		})
+	},
+	
+	//导出
+	exportCard() {
+		if(this.data.onOff || this.data.id){
+			this.addressBook()
+			this.universalCard()
+		}else{
+			wx.showToast({
+			  title: '您尚未保存',
+			  icon: 'none',
+			  duration: 1000
+			})
+		}	
 	},
 	// 打开其他程序
 	openProgress() {
