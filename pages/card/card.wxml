@@ -1,0 +1,101 @@
+<!--card.wxml-->
+<view class="container">
+	<view>
+		<!-- <view class="header"> -->
+			<!-- <image class="return-ico" src="http://ii.sinelinked.com/miniProgramAssets/card-newreturn.png" alt="" bindtap="navigateBack"></image> -->
+			<!-- <text class="card-info">名片信息</text> -->
+			<!-- <button class="btn" lang="zh_CN" bindtap="onSave">保存</button> -->
+			<!-- <button class="btn" type=""  wx:else>保存</button> -->
+		<!-- </view> -->
+
+		<view class='main'>
+			<view class='main-content'>
+				<view class='card-logo-box'>
+					<image class='card-logo' src='{{formItem.cardImgUrl}}'></image>
+					<view class="btnBox">
+						<button type='default' class='export' bindtap="exportCard" size='mini'>导 出</button>
+						<button type='default' size='mini' class='open' bindtap="openProgress">
+							<!-- <image class='open-logo' src='http://ii.sinelinked.com/miniProgramAssets/card-lg.png'></image> -->
+							柳梢声声
+						</button>
+					</view>
+				</view>
+				<view class='nameUser-box'>
+					<input type="text" class='nameUser' data-model="formItem.cardName" value='{{formItem.cardName}}' bindinput="inputWacth"/>
+				</view>
+				<view class='post-box'>
+					<input type="text" class='post' placeholder='职位' value="{{formItem.cardTitle}}" data-model="formItem.cardTitle" bindinput="inputWacth"/>
+				</view>
+				<view class='common-box'>
+					<image class='card-tel' src='http://ii.sinelinked.com/miniProgramAssets/card-tel.png'></image>
+					<label>手机</label>
+					<input type="number" class='tel' value='{{formItem.telCell}}' data-model="formItem.telCell" bindinput="inputWacth"/>
+					<image class='card-x' src='http://ii.sinelinked.com/miniProgramAssets/card-x.png'></image>
+				</view>
+				<view class='common-box'>
+					<label>添加号码</label>
+					<input type="number" class='tel' value='{{formItem.telWork}}' data-model="formItem.telWork" bindinput="inputWacth"/>
+					<image class='card-x' src='http://ii.sinelinked.com/miniProgramAssets/card-+.png'></image>
+				</view>
+				<view class='common-box'>
+					<image class='card-email' src='http://ii.sinelinked.com/miniProgramAssets/card-email.png'></image>
+					<label>邮箱</label>
+					<input type="text" class='tel' value='{{formItem.cardEmail}}' data-model="formItem.cardEmail" bindinput="inputWacth"/>
+					<image class='card-x' src='http://ii.sinelinked.com/miniProgramAssets/card-x.png'></image>
+				</view>
+				<view class='common-box'>
+					<image class='card-inter' src='http://ii.sinelinked.com/miniProgramAssets/card-inter.png'></image>
+					<label>部门</label>
+					<input type="text" class='tel' value='{{formItem.cardDepartment}}' data-model="formItem.cardDepartment" bindinput="inputWacth" />
+				</view>
+				<view class='common-box'>
+					<image class='card-company' src='http://ii.sinelinked.com/miniProgramAssets/card-company.png'></image>
+					<label>公司</label>
+					<input type="text" class='tel' value='{{formItem.cardCompany}}' data-model="formItem.cardCompany" bindinput="inputWacth" />
+					<image class='card-x' src='http://ii.sinelinked.com/miniProgramAssets/card-x.png'></image>
+				</view>
+				<view class='common-box'>
+					<image class='card-address' src='http://ii.sinelinked.com/miniProgramAssets/card-address.png'></image>
+					<label>地址</label>
+					<input type="text" class='tel' value='{{formItem.cardAddr}}' data-model="formItem.cardAddr" bindinput="inputWacth" />
+					<image class='card-x' src='http://ii.sinelinked.com/miniProgramAssets/card-x.png'></image>
+				</view>
+				<view class='common-box'>
+					<image class='card-remark' src='http://ii.sinelinked.com/miniProgramAssets/card-remark.png'></image>
+					<label>备注</label>
+					<input type="text" class='tel' placeholder='{{formItem.remark}}' data-model="formItem.remark" bindinput="inputWacth" />
+				</view>
+			</view>
+		</view>
+		<view class='footer'>
+			<button type='primary'>保 存</button>
+			<!-- <button type='default' class='export' bindtap="exportCard" size='mini'>导 出</button>
+			<button type='primary' size='mini' class='open' bindtap="openProgress">
+				<image class='open-logo' src='http://ii.sinelinked.com/miniProgramAssets/card-lg.png'></image>
+				打开柳梢声声
+			</button> -->
+		</view>
+		<!-- mask -->
+		<view class="mask" wx:if="{{mask}}" animation="{{animationData}}">
+			<view class="maskBox">
+				<view class="box">
+					导出到通讯录
+					<view class="pic-box" bindtap="handleBookClick">
+						<image class="card-sel" wx:if="{{exportBook}}" src="http://ii.sinelinked.com/miniProgramAssets/card-sel.png"></image>
+						<image class="card-sel" wx:else src="http://ii.sinelinked.com/miniProgramAssets/card-select.png"></image>
+					</view>
+				</view>
+				<view class="box">
+					导出到通用名片
+					<button class="pic-box" open-type="getUserInfo" bindtap="handleCardClick">
+						<image class="card-sel" wx:if="{{exportCard}}" src="http://ii.sinelinked.com/miniProgramAssets/card-sel.png"></image>
+						<image class="card-sel" wx:else src="http://ii.sinelinked.com/miniProgramAssets/card-select.png"></image>
+					</button>
+				</view>
+			</view>
+			<view class="hide-x" bindtap="handleClose">
+				<image class="card-close" src="http://ii.sinelinked.com/miniProgramAssets/close-circle.png"></image>
+			</view>
+		</view>
+	</view>
+</view>

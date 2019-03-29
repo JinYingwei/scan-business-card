@@ -1,0 +1,29 @@
+<!--index.wxml-->
+<view class="container">
+	<canvas canvas-id="attendCanvasId" style="width:{{ windowWidth }}px;height:{{ windowHeight }}px;position: absolute;left: 0;right: 0;"></canvas>
+	
+	<!-- camera.wxml -->
+	
+	<camera
+		wx:if="{{ isShow }}" 
+		class="camera"
+		device-position="back"
+		flash="auto"
+		binderror="error"
+		style="width: 100%;height: 100vh;"
+	>
+		<cover-view>
+			<cover-view class="card-img-box">
+        <navigator url='/pages/list/list'>
+				  <cover-image class="card-img" src="http://ii.sinelinked.com/miniProgramAssets/card-ico.png"></cover-image>
+        </navigator>
+			</cover-view>
+			<cover-view class="album-img-box">
+				<cover-image class="album-img" src="http://ii.sinelinked.com/miniProgramAssets/album-ico.png" bindtap="openAlbum"></cover-image>
+			</cover-view>
+			<cover-view class="takePhoto-box">
+				<button class="takePhoto" type="default" plain="true" loading="true" bindtap="takePhoto">拍照</button>
+			</cover-view>
+		</cover-view>
+	</camera>
+</view>

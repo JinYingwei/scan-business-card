@@ -1,0 +1,45 @@
+/* canvas */
+.canvasPos{
+	top: 999px;
+	display: none;
+}
+
+.card-img-box,.album-img-box{
+	margin-top: 40px;
+}
+.card-img-box{
+	height: 43px;
+}
+.album-img-box{
+	height: 43px;
+	
+}
+.card-img,.album-img{
+	transform: rotateZ(-90deg);
+	margin-left: auto;
+	margin-right: 32px;
+}
+.card-img{
+	width: 43px;
+	height: 36px;
+	
+}
+.album-img{
+	width: 43px;
+	height: 26px;
+	margin-top: 9px;
+}
+.takePhoto-box{
+	position: relative;
+	left: 0;
+	right: 0;
+	margin: auto;
+}	
+.takePhoto{
+	border-radius: 50%;
+	width: 100rpx;
+	height: 100rpx;
+	background: red;
+	/* opacity: .5; */
+	color: transparent;
+}

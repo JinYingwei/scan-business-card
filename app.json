@@ -1,0 +1,13 @@
+{
+  "pages": [
+    "pages/camera/camera",
+    "pages/list/list",
+    "pages/card/card"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTextStyle": "black"
+  },
+	"navigateToMiniProgramAppIdList": ["wx3facaaa31f346d16"]
+}

@@ -1,0 +1,126 @@
+/* pages/list/list.wxss */
+.header {
+	padding: 33rpx 20rpx 0;
+	height: 140rpx;
+	background: #f9f9f9;
+}
+
+.search-top {
+	display: flex;
+	justify-content: space-between;
+}
+
+.search-btn {
+	width: 598rpx;
+	height: 55rpx;
+	line-height: 55rpx;
+	background: #ededed;
+	border-radius: 25rpx;
+	font-size: 20rpx;
+	text-align: center;
+	display: flex;
+	justify-content: flex-end;
+}
+
+.add-search {
+	width: 19rpx;
+	height: 19rpx;
+	margin-right: 14rpx;
+	margin-top: 18rpx;
+}
+
+.search-input {
+	display: inline-block;
+	text-align: left;
+	width: 50%;
+	height: 55rpx;
+	line-height: 55rpx;
+}
+
+.add-box {
+	font-size: 24rpx;
+	color: #507eff;
+	height: 55rpx;
+	display: flex;
+	align-items: center;
+}
+
+.add {
+	width: 28rpx;
+	height: 28rpx;
+	margin-right: 10rpx;
+}
+
+.tel-people {
+	color: #a0a0a0;
+	line-height: 58rpx;
+	margin-top: 27rpx;
+	font-size: 22rpx;
+	text-align: center;
+}
+
+.main {
+	background: #f9f9f9;
+	position: relative;
+}
+
+.content .item:first-child {
+	margin-top: 0;
+}
+
+.item {
+	background: #fff;
+	margin-top: 26rpx;
+	padding-left: 33rpx;
+	padding-right: 78rpx;
+}
+
+.initials {
+	font-size: 26rpx;
+	color: #666;
+	line-height: 62rpx;
+}
+
+.item-li {
+	display: flex;
+	align-items: center;
+	height: 106rpx;
+	border-bottom: 1px solid #eee;
+	overflow: hidden;
+	position: relative;
+}
+
+.user-logo {
+	width: 60rpx;
+	height: 60rpx;
+	border-radius: 50%;
+	margin-right: 26rpx;
+}
+
+.userName {
+	font-size: 30rpx;
+	color: #333;
+	margin-right: 30rpx;
+	width: 100rpx;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.tel {
+	font-size: 24rpx;
+	color: #666;
+}
+
+.post-letter {
+	position: absolute;
+	width: 26rpx;
+	right: 20rpx;
+	top: 12rpx;
+	font-size: 24rpx;
+	color: #aaa;
+}
+
+.letter {
+	line-height: 40rpx;
+}
