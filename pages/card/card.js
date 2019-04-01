@@ -5,6 +5,14 @@ let app = getApp()
 // pages/card.js
 Page({
 	data: {
+		items: [
+			{name: 'USA', value: '美国'},
+			{name: 'CHN', value: '中国', checked: 'true'},
+			{name: 'BRA', value: '巴西'},
+			{name: 'JPN', value: '日本'},
+			{name: 'ENG', value: '英国'},
+			{name: 'TUR', value: '法国'},
+		],
 		formItem: {},
 		desc: '', //备注
 		url: '', //网址
@@ -14,7 +22,8 @@ Page({
 		cardId: '',
 		tel:'',//存手机号
 		id:'',	//用来确保是修改还是添加的id
-		onOff:false
+		onOff:false,
+		url : 'http://tymp-bucket.oss-cn-beijing.aliyuncs.com/exter/businesscard/collection/oRKLm5dvAp_139E52AIN6b_C_e5E/155409348874518228899.jpg?x-oss-process=image/resize,h_1000'
 	},
 	onLoad: function(options) {
 		this.data.cardId = options.id
@@ -22,9 +31,10 @@ Page({
 			this.cardbyid(options.id)
 		}
 		this.setData({
-			formItem: app.globalData.formItem
+			formItem: app.globalData.formItem,
+			url:app.globalData.formItem.cardImgUrl
 		})
-		
+		console.log(app.globalData.formItem.cardImgUrl);
 	},
 	//返回
 	navigateBack(){
@@ -32,7 +42,14 @@ Page({
 		  delta:1,
 		})
 	},
-		
+	// 预览
+	handlePreview(){
+		let This = this
+		wx.previewImage({
+		  current: This.data.formItem.cardImgUrl, // 当前显示图片的http链接
+		  urls: [This.data.formItem.cardImgUrl] // 需要预览的图片http链接列表
+		})
+	},	
 	// 通过id获取名片信息
 	cardbyid(id) {
 		let This = this
@@ -135,6 +152,7 @@ Page({
 			}
 		})
 	},
+	
 	//选择通讯录
 // 	handleBookClick(){
 // 		this.setData({

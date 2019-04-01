@@ -1,17 +1,41 @@
 <!--list.wxml-->
 <view class='container'>
 	<view class='header'>
+		<view class="top"></view>
 		<view class='search-top'>
 			<view class='search-btn'>
 				<image class='add-search' src='http://ii.sinelinked.com/miniProgramAssets/add-book.png'></image>
-				<input class='search-input' type='text' placeholder='搜索联系人' />
+				<input class='search-input'  type='text' placeholder='搜索联系人' data-model="searchVal" value="{{searchVal}}" bindinput="handleSearch"/>
 			</view>
 			<view class='add-box' bindtap="newAdd">
-				<image class='add' src='http://ii.sinelinked.com/miniProgramAssets/add-jia.png'></image>
-				新增
+				<image class='add' src='http://ii.sinelinked.com/miniProgramAssets/card-list.png'></image>
+				标签
+			</view>
+			
+			<view class="list" wx:if="{{isChecked}}">
+				<view>个人</view>
+				<view>团队</view>
+				<view wx:for="{{labelList}}" wx:key="item.id">{{item.labelName}}</view>
+				<view class="last">+</view>
 			</view>
 		</view>
-		<view class='tel-people'>{{cardNumber}}位联系人</view>
+	</view>
+	<view class="mask">
+		<view class="mask-con">
+			<view class="mask-top">
+				添加标签
+			</view>
+			<view class="mask-search"></view>
+			<view class="mask-ht">
+				<view>个人 x</view>
+				<view>团队 x</view>
+				<view>白泽 x</view>
+			</view>
+			<view class="mask-btn">
+				<view>取消</view>
+				<view>确定</view>
+			</view>
+		</view>
 	</view>
 	<view class='main'>
 		<scroll-view scroll-y="true" class='content'>
@@ -24,6 +48,7 @@
 					<text class='tel'>{{item.telCell}}</text>
 				</view>
 			</view>
+			<view class='tel-people'>{{cardNumber}}位联系人</view>
 		</scroll-view>
 		<scroll-view class='post-letter'>
 			<view class='letter' wx:for="{{letters}}" wx:key="{{id}}">{{item.title}}</view>

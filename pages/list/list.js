@@ -93,7 +93,10 @@ Page({
 		startX: '',
 		delBtnWidth: 60,
 		moveWidth: '',
-		cardNumber: ''
+		cardNumber: '',
+		searchVal:null,	//搜索表单
+		isChecked:false,
+		labelList:[]	//标签
 	},
 	//长按删除
 	deleteUser(e) {
@@ -141,8 +144,8 @@ Page({
 	},
 	//新增
 	newAdd() {
-		wx.navigateTo({
-			url: '/pages/camera/camera'
+		this.setData({
+			isChecked: !this.data.isChecked
 		})
 	},
 	//获取名片列表	
@@ -170,8 +173,64 @@ Page({
 			}
 		})
 	},
+	// 获取当前用户的标签列表
+	getLabelByOpenId(){
+		let This = this
+		wx.request({
+			url:utils.baseURL + '/card/scan/getLabelByOpenId',
+			method:'GET',
+			data:{
+				openId: app.globalData.appid
+			},
+			success(res){
+				let {labelList} = res.data.data
+				console.log(labelList);
+				if(res.data.code == 0){
+					This.setData({
+						labelList
+					})
+				}
+			}
+		})
+	},
+	
+	// 搜索
+	handleSearch(e){
+		let data = app.globalData
+		let item = e.currentTarget.dataset.model;
+		let inpVal = e.detail.value
+		let This = this
+		this.setData({
+		  [item]: e.detail.value
+		});
+		wx.request({
+			url:utils.baseURL + '/card/scan/get/cardlistbyopenid',
+			method:'GET',
+			data:{
+				openId:data.openId,
+				cardName:inpVal
+			},
+			success(res){
+				let {data} = res
+				let {key} = data.data.data
+				
+				if(data.code == 0 && data.data.data.key){
+					let n = 0
+					for(var first in key){
+						n = key[first].length
+					}
+					
+					This.setData({
+						cardList: key,
+						cardNumber: n
+					})
+				}
+			}
+		})
+	},
 	onLoad() {
 		this.getCardList()
+		this.getLabelByOpenId()
 	},
 	onShow(){
 		this.getCardList()

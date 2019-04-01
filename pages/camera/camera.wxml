@@ -14,12 +14,13 @@
 			<cover-view class="album-img-box">
 				<cover-image class="album-img" src="http://ii.sinelinked.com/miniProgramAssets/album-ico.png" bindtap="openAlbum"></cover-image>
 			</cover-view>
-			<cover-view class="takePhoto-box">
-				<button class="takePhoto" type="default" plain="true" loading="true" bindtap="takePhoto">拍照</button>
-			</cover-view>
 			
 			<cover-view class="focus-box">
 				<cover-image class="focus" src="http://ii.sinelinked.com/miniProgramAssets/card-focus.png"></cover-image>
+			</cover-view>
+			
+			<cover-view class="takePhoto-box" bindtap="takePhoto" >
+				<!-- <button class="takePhoto" type="default" bindtap="takePhoto" size='mini'>拍照</button> -->
 			</cover-view>
 		</cover-view>
 	</camera>

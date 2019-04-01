@@ -22,7 +22,7 @@ Page({
 		const ctx = wx.createCameraContext()
 		let This = this
 		ctx.takePhoto({
-			quality: 'low',
+			quality: 'high',
 			success: (res) => {
 				
 				This.setData({
@@ -64,13 +64,14 @@ Page({
 				if (data.cardName && data.telCell) {
 					var obj = data
 					for (var key in data) {
-						if (data[key] != null) {
+						if (data[key] != null && key != 'cardImgUrl') {
 							if (data[key].indexOf(',') != -1) {
 								obj[key] = data[key].slice(0, data[key].length - 1)
 							}
 						}
 					}
 					//赋值全局变量
+					console.log(obj);
 					app.globalData.formItem = obj
 					wx.navigateTo({
 						url: '/pages/card/card'
@@ -126,7 +127,7 @@ Page({
 					// ctx.drawImage(tempFilePaths, 0, 0, res.width / 1.4, res.height / 1.4);
 					ctx.drawImage(tempFilePaths, 0, 0, that.data.windowWidth, that.data.windowHeight);
 				} else {
-					ctx.drawImage(tempFilePaths, 0, 0, res.width, res.height);
+					ctx.drawImage(tempFilePaths, 0, 0, w, h);
 				}
 
 				// ctx.drawImage(tempFilePaths, 0, 0, res.width,res.height);
@@ -141,9 +142,8 @@ Page({
 	// 生成图片
 	prodImageOpt() {
 		var that = this;
-
 		wx.canvasToTempFilePath({
-			quality: 0.1,
+			quality: 1,
 			fileType: 'jpg',
 			canvasId: 'attendCanvasId',
 			success(res) {
@@ -176,13 +176,10 @@ Page({
 			windowWidth: w
 		})
 	},
-	onLoad: function() {
-
-	},
 	onShow() {
 		try {
 			const res = wx.getSystemInfoSync()
-			console.log(res);
+			
 
 			const {
 				windowHeight,

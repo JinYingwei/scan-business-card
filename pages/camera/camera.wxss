@@ -10,16 +10,31 @@
 	margin-top: 40px;
 }
 .card-img-box{
-	height: 43px;
+	width: 50px;
+	height: 50px;
+	display: flex;
+	align-items: center;
+	background: #000;
+	justify-content: center;
+	margin-left: auto;
+	margin-right: 32px;
+	opacity:.7;
+	border-radius: 5px;
 }
 .album-img-box{
-	height: 43px;
-	
+	width: 50px;
+	height: 50px;
+	display: flex;
+	align-items: center;
+	background: #000;
+	justify-content: center;
+	margin-left: auto;
+	margin-right: 32px;
+	opacity:.7;
+	border-radius: 5px;
 }
 .card-img,.album-img{
 	transform: rotateZ(-90deg);
-	margin-left: auto;
-	margin-right: 32px;
 }
 .card-img{
 	width: 43px;
@@ -29,30 +44,28 @@
 .album-img{
 	width: 43px;
 	height: 26px;
-	margin-top: 9px;
+	
 }
 .takePhoto-box{
-	position: relative;
-	left: 0;
-	right: 0;
-	top: 0;
-	bottom: 0;
-	margin: auto;
+	text-align: center;
+	border-radius: 50%;
+	width: 150rpx;
+	height: 150rpx;
+	background: #fff;
+	color: #fff;
+	margin: 100rpx auto;
 }	
-.takePhoto{
+.takePhoto-box button{
 	border-radius: 50%;
 	width: 100rpx;
 	height: 100rpx;
-	background: red;
-	/* opacity: .5; */
-	color: transparent;
+	background: #fff;
+	color: #fff;
+}
+.takePhoto-box button::after{
+	border-radius: 50%;
 }
 .focus-box{
-	/* position: absolute;
-	left: 50%;
-	top: 50%;
-	margin: -300rpx 0 0 -300rpx; */
-	/* z-index: 9999; */
 	text-align: center;
 }
 .focus{
@@ -60,7 +73,7 @@
 	left: 50%;
 	top: 50%;
 	margin: -300rpx 0 0 -300rpx; */
-	width: 100%;
-	height: 600rpx;
+	width: 65%;
+	height: 780rpx;
 	margin: 0 auto;
 }
