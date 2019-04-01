@@ -1,184 +1,240 @@
 /* pages/list/list.wxss */
-.container{
-	position: relative;
+
+.container {
+    position: relative;
 }
+
 .header {
-	padding: 33rpx 20rpx 0;
-	height: 140rpx;
-	background: #f9f9f9;
+    padding: 33rpx 20rpx 0;
+    height: 140rpx;
+    background: #f9f9f9;
 }
-.top{
-	height: 56rpx;
-	background: #e15671;
-	margin-bottom: 14rpx;
+
+.top {
+    height: 56rpx;
+    background: #e15671;
+    margin-bottom: 14rpx;
 }
+
 .search-top {
-	display: flex;
-	justify-content: space-between;
-	position: relative;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
 }
 
 .search-btn {
-	width: 598rpx;
-	height: 55rpx;
-	line-height: 55rpx;
-	background: #ededed;
-	border-radius: 25rpx;
-	font-size: 20rpx;
-	text-align: center;
-	display: flex;
-	justify-content: flex-end;
+    width: 598rpx;
+    height: 55rpx;
+    line-height: 55rpx;
+    background: #ededed;
+    border-radius: 25rpx;
+    font-size: 20rpx;
+    text-align: center;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .add-search {
-	width: 19rpx;
-	height: 19rpx;
-	margin-right: 14rpx;
-	margin-top: 18rpx;
+    width: 19rpx;
+    height: 19rpx;
+    margin-right: 14rpx;
+    margin-top: 18rpx;
 }
 
 .search-input {
-	display: inline-block;
-	text-align: left;
-	width: 50%;
-	height: 55rpx;
-	line-height: 55rpx;
+    display: inline-block;
+    text-align: left;
+    width: 50%;
+    height: 55rpx;
+    line-height: 55rpx;
 }
 
 .add-box {
-	font-size: 24rpx;
-	color: #507eff;
-	height: 55rpx;
-	display: flex;
-	align-items: center;
+    font-size: 24rpx;
+    color: #507eff;
+    height: 55rpx;
+    display: flex;
+    align-items: center;
 }
-.list{
-	position: absolute;
-	z-index: 999;
-	background: #000;
-	opacity: .6;
-	color: #fff;
-	right: -10rpx;
-	top: 70rpx;
-	font-size: 24rpx;
-	width: 100rpx;
-	border-radius: 10rpx;
-	text-align: center;
-	line-height: 70rpx;
+
+.list {
+    position: absolute;
+    z-index: 999;
+    background: #000;
+    opacity: .6;
+    color: #fff;
+    right: -10rpx;
+    top: 70rpx;
+    font-size: 24rpx;
+    width: 100rpx;
+    border-radius: 10rpx;
+    text-align: center;
+    line-height: 70rpx;
 }
-.list .last{
-	font-weight: bold;
-	font-size: 30rpx;
+
+.list .last {
+    font-weight: bold;
+    font-size: 30rpx;
 }
-.list view{
-	border-bottom: 1px solid #ddd;
+
+.list view {
+    border-bottom: 1px solid #ddd;
 }
+
 .add {
-	width: 28rpx;
-	height: 28rpx;
-	margin-right: 10rpx;
+    width: 28rpx;
+    height: 28rpx;
+    margin-right: 10rpx;
 }
 
 .tel-people {
-	color: #a0a0a0;
-	line-height: 58rpx;
-	margin-top: 26rpx;
-	font-size: 26rpx;
-	text-align: center;
+    color: #a0a0a0;
+    line-height: 58rpx;
+    margin-top: 26rpx;
+    font-size: 26rpx;
+    text-align: center;
 }
 
 .main {
-	background: #f9f9f9;
-	position: relative;
+    background: #f9f9f9;
+    position: relative;
 }
 
 .content .item:first-child {
-	margin-top: 0;
+    margin-top: 0;
 }
 
 .item {
-	background: #fff;
-	margin-top: 26rpx;
-	padding-left: 33rpx;
-	padding-right: 78rpx;
+    background: #fff;
+    margin-top: 26rpx;
+    padding-left: 33rpx;
+    padding-right: 78rpx;
 }
 
 .initials {
-	font-size: 26rpx;
-	color: #666;
-	line-height: 62rpx;
+    font-size: 26rpx;
+    color: #666;
+    line-height: 62rpx;
 }
 
 .item-li {
-	display: flex;
-	align-items: center;
-	height: 106rpx;
-	border-bottom: 1px solid #eee;
-	overflow: hidden;
-	position: relative;
+    display: flex;
+    align-items: center;
+    height: 106rpx;
+    border-bottom: 1px solid #eee;
+    overflow: hidden;
+    position: relative;
 }
 
 .user-logo {
-	width: 60rpx;
-	height: 60rpx;
-	border-radius: 50%;
-	margin-right: 26rpx;
+    width: 60rpx;
+    height: 60rpx;
+    border-radius: 50%;
+    margin-right: 26rpx;
 }
 
 .userName {
-	font-size: 30rpx;
-	color: #333;
-	margin-right: 30rpx;
-	width: 100rpx;
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
+    font-size: 30rpx;
+    color: #333;
+    margin-right: 30rpx;
+    width: 100rpx;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .tel {
-	font-size: 24rpx;
-	color: #666;
+    font-size: 24rpx;
+    color: #666;
 }
 
 .post-letter {
-	position: absolute;
-	width: 26rpx;
-	right: 20rpx;
-	top: 12rpx;
-	font-size: 24rpx;
-	color: #aaa;
+    position: absolute;
+    width: 26rpx;
+    right: 20rpx;
+    top: 12rpx;
+    font-size: 24rpx;
+    color: #aaa;
 }
 
 .letter {
-	line-height: 40rpx;
+    line-height: 40rpx;
 }
+
+
 /* mask */
-.mask{
-	position: fixed;
-	left:0;
-	top:0;
-	background: #000;
-	opacity: .7;
-	width: 100%;
-	height: 100vh;
-	z-index: 999999;
-	font-size: 24rpx;
+
+.mask {
+    position: fixed;
+    left: 0;
+    top: 0;
+    background: #000;
+    opacity: .8;
+    width: 100%;
+    height: 100vh;
+    z-index: 999999;
+    font-size: 24rpx;
 }
-.mask-con{
-	position: absolute;
-	left: 0;
-	right: 0;
-	top:300rpx;
-	margin: auto;
-	border-radius: 20rpx;
-	height: 400rpx;
-	width: 80%;
-	background: #fff;
-	z-index: 999999;
-	padding: 30rpx;
+
+.mask-con {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 300rpx;
+    margin: auto;
+    border-radius: 20rpx;
+    width: 80%;
+    background: #fff;
+    z-index: 999999;
+    padding: 30rpx;
 }
-.mask-top{
-	text-align: center;
-	border-bottom: 1px solid #ddd;
-	line-height: 60rpx;
+
+.mask-top {
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    line-height: 60rpx;
+}
+
+.mask-search {
+    margin-top: 30rpx;
+}
+
+.mask-search input {
+    padding-left: 40rpx;
+    height: 50rpx;
+    background: #ddd;
+    border-radius: 20rpx;
+    font-size: 20rpx;
+    color: #333;
+}
+
+.mask-ht {
+    margin-top: 20rpx;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.mask-ht view {
+    font-size: 20rpx;
+    margin-right: 15rpx;
+    background: #0593d3;
+    border-radius: 5rpx;
+    padding: 5rpx;
+    color: #fff;
+}
+
+.mask-btn {
+    margin-top: 40rpx;
+    display: flex;
+    justify-content: space-between;
+}
+
+.mask-btn view {
+    width: 200rpx;
+    height: 50rpx;
+    line-height: 50rpx;
+    text-align: center;
+    background: #eee;
+    border: 1px solid #aaa;
+    border-radius: 30rpx;
 }

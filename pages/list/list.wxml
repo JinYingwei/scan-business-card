@@ -16,24 +16,26 @@
 				<view>个人</view>
 				<view>团队</view>
 				<view wx:for="{{labelList}}" wx:key="item.id">{{item.labelName}}</view>
-				<view class="last">+</view>
+				<view class="last" bindtap="handleAddClick">+</view>
 			</view>
 		</view>
 	</view>
-	<view class="mask">
+	<view class="mask" hidden="{{maskShow}}">
 		<view class="mask-con">
 			<view class="mask-top">
 				添加标签
 			</view>
-			<view class="mask-search"></view>
+			<view class="mask-search">
+				 <input type='text' placeholder="添加 +" data-model="labelVal" value="{{labelVal}}" bindinput="handleLabel" />
+			</view>
 			<view class="mask-ht">
-				<view>个人 x</view>
+				<view bindtap="handleShowModal">个人 x</view>
 				<view>团队 x</view>
 				<view>白泽 x</view>
 			</view>
 			<view class="mask-btn">
-				<view>取消</view>
-				<view>确定</view>
+				<view bindtap="handleCancelClick">取消</view>
+				<view bindtap="handleAddLabelClick">确定</view>
 			</view>
 		</view>
 	</view>
