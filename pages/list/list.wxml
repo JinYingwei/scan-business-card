@@ -1,7 +1,9 @@
 <!--list.wxml-->
 <view class='container'>
 	<view class='header'>
-		<view class="top"></view>
+		<view class="top">
+			<image src="http://ii.sinelinked.com/miniProgramAssets/gy03.png" mode="widthFix"></image>
+		</view>
 		<view class='search-top'>
 			<view class='search-btn'>
 				<image class='add-search' src='http://ii.sinelinked.com/miniProgramAssets/add-book.png'></image>
@@ -13,9 +15,9 @@
 			</view>
 			
 			<view class="list" wx:if="{{isChecked}}">
-				<view>个人</view>
-				<view>团队</view>
-				<view wx:for="{{labelList}}" wx:key="item.id">{{item.labelName}}</view>
+				<!-- <view>个人</view>
+				<view>团队</view> -->
+				<view wx:for="{{labelList}}" wx:key="item.id" data-id="{{item.id}}" bindtap="handleGetList">{{item.labelName}}</view>
 				<view class="last" bindtap="handleAddClick">+</view>
 			</view>
 		</view>
@@ -29,9 +31,9 @@
 				 <input type='text' placeholder="添加 +" data-model="labelVal" value="{{labelVal}}" bindinput="handleLabel" />
 			</view>
 			<view class="mask-ht">
-				<view bindtap="handleShowModal">个人 x</view>
-				<view>团队 x</view>
-				<view>白泽 x</view>
+				<!-- <view>个人 x</view>
+				<view>团队 x</view> -->
+				<view wx:for="{{labelList}}" wx:key="item.id" bindtap="handleShowModal" data-id="{{item.id}}">{{item.labelName}} x</view>
 			</view>
 			<view class="mask-btn">
 				<view bindtap="handleCancelClick">取消</view>

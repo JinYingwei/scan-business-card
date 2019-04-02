@@ -5,17 +5,10 @@ let app = getApp()
 // pages/card.js
 Page({
 	data: {
-		items: [
-			{name: 'USA', value: '美国'},
-			{name: 'CHN', value: '中国', checked: 'true'},
-			{name: 'BRA', value: '巴西'},
-			{name: 'JPN', value: '日本'},
-			{name: 'ENG', value: '英国'},
-			{name: 'TUR', value: '法国'},
-		],
+		items: [],	//存标签
 		formItem: {},
 		desc: '', //备注
-		url: '', //网址
+		// picUrl: '', //
 		mask: false,	//mask
 		exportBook: true,	//通讯录图 显示 隐藏
 		exportCard: true,	//名片图片 显示 隐藏
@@ -23,18 +16,33 @@ Page({
 		tel:'',//存手机号
 		id:'',	//用来确保是修改还是添加的id
 		onOff:false,
-		url : 'http://tymp-bucket.oss-cn-beijing.aliyuncs.com/exter/businesscard/collection/oRKLm5dvAp_139E52AIN6b_C_e5E/155409348874518228899.jpg?x-oss-process=image/resize,h_1000'
+		is:true
 	},
 	onLoad: function(options) {
 		this.data.cardId = options.id
 		if(options.id){
 			this.cardbyid(options.id)
 		}
-		this.setData({
-			formItem: app.globalData.formItem,
-			url:app.globalData.formItem.cardImgUrl
-		})
-		console.log(app.globalData.formItem.cardImgUrl);
+		console.log(options.id);
+		console.log(app.globalData.labelList);
+		let list = wx.getStorageSync('list')
+		if(!options.id){
+			this.setData({
+				items: list,
+				formItem: app.globalData.formItem,
+			})
+		}else{
+			this.setData({
+				formItem: app.globalData.formItem,
+				items:app.globalData.labelList
+			})
+		}
+		
+		console.log(list);
+	},
+	checkboxChange(e) {
+		this.data.labelChecked = e.detail.value
+		console.log(this.data.labelChecked);
 	},
 	//返回
 	navigateBack(){
@@ -57,15 +65,19 @@ Page({
 			url: utils.baseURL + '/card/scan/get/cardbyid',
 			method: 'GET',
 			data: {
-				id
+				id,
+				openId:app.globalData.openId
 			},
 			success(res) {
-				This.data.tel = res.data.data.telCell.slice(0,This.data.tel.length-1)
+				// This.data.tel = res.data.data.telCell.slice(0,This.data.tel.length-1)
 				This.data.id = res.data.data.id
+				// res.data.data.cardImgUrl = res.data.data.cardImgUrl+'0'
 				console.log(res);
 				This.setData({
-					formItem: res.data.data
+					formItem: res.data.data,
+					is:false
 				})
+				
 			}
 		})
 	},
@@ -106,8 +118,9 @@ Page({
 				telWork: This.data.formItem.telWork,
 				telCell: This.data.formItem.telCell,
 				remark: This.data.formItem.remark,
-				cardImgUrl: This.data.formItem.cardImgUrl
-			},
+				cardImgUrl: This.data.formItem.cardImgUrl,
+				labelIds: This.data.labelChecked
+			},	
 			success(res){
 				if (res.data.code == 0) {
 					wx.showToast({
@@ -138,7 +151,8 @@ Page({
 				telWork: This.data.formItem.telWork, //添加号码||固定电话
 				telCell: This.data.formItem.telCell, //手机号
 				cardDepartment: This.data.formItem.cardDepartment, //部门
-				cardImgUrl: This.data.formItem.cardImgUrl //图片
+				cardImgUrl: This.data.formItem.cardImgUrl, //图片
+				labelIds: This.data.labelChecked
 			},
 			success(res) {
 				if (res.data.code == 0) {
@@ -153,118 +167,6 @@ Page({
 		})
 	},
 	
-	//选择通讯录
-// 	handleBookClick(){
-// 		this.setData({
-// 			exportBook:	false,
-// 			exportCard: true
-// 		})
-// 		//选中通讯录
-// 		if(!this.data.exportBook){
-// 			//通讯录
-// 			let cardData = this.data.formItem
-// 			//通讯录手机号
-// 			let phoneNumber = cardData.telCell.slice(0,cardData.telCell.length-1)
-// 		
-// 			// 导出通讯录
-// 			wx.addPhoneContact({
-// 				firstName : cardData.cardName.slice(1),
-// 				lastName: cardData.cardName.slice(0,1),
-// 				mobilePhoneNumber : phoneNumber,
-// 				success(res){
-// 					wx.showToast({
-// 						title: '导出通讯录成功',
-// 						icon: 'success',
-// 						duration: 1000
-// 					})
-// 				}
-// 			})
-// 		}
-// 	},
-// 	// 选择通用名片
-// 	handleCardClick(){
-// 		this.setData({
-// 			exportCard:	false,
-// 			exportBook: true
-// 		})
-// 		let This = this
-// 		//选中通用名片
-// 		if(!this.data.exportCard){
-// 			let code = '';
-// 			wx.login({
-// 				success(res){
-// 					if(res.code){
-// 						code = res.code
-// 						wx.getSetting({
-// 							success(res) {
-// 								if (res.authSetting['scope.userInfo']) {
-// 									// 已经授权，可以直接调用 getUserInfo 获取头像昵称
-// 									let iv = '',
-// 										encryptedData;
-// 									wx.getUserInfo({
-// 										success(res) {
-// 											console.log(res)
-// 											iv = res.iv
-// 											encryptedData = res.encryptedData
-// 											//拿unionId
-// 											wx.request({
-// 												url: utils.baseURL + '/card/scan/decodeOpenId',
-// 												method: 'GET',
-// 												data: {
-// 													encryptedData,
-// 													iv,
-// 													code: code
-// 												},
-// 												success(res) {			
-// 													let unionId = res.data.data.unionId
-// 													wx.request({
-// 														url: utils.baseURL + '/card/scan/export/touniversal',
-// 														method: 'POST',
-// 														data: {
-// 															unionId,
-// 															// unionId: 'oeSpI6PPQtVcCDLr54BWE5wlwU5Y',
-// 															tel: This.data.formItem.telCell
-// 														},
-// 														success(res){
-// 															//导出通用名片
-// 															if (res.data.code == 0) {
-// 																wx.showToast({
-// 																	title: '导出通用名片成功',
-// 																	icon: 'success',
-// 																	duration: 1000
-// 																})
-// 															}else{
-// 																wx.showToast({
-// 																	title: '尚未注册通用名片，导出失败',
-// 																	icon: 'none',
-// 																	duration: 1000
-// 																})
-// 															}
-// 															console.log(res);
-// 														},
-// 													})
-// 												}
-// 											})
-// 										}
-// 									})
-// 								}
-// 							}
-// 						})
-// 					}else{
-// 						console.log('登录失败' + res.errMsg);
-// 					}
-// 				}
-// 			})
-// 		}
-// 	},
-	//关闭遮罩层
-// 	handleClose(){
-// 		this.setData({
-// 			mask: false,
-// 			exportCard:	true,
-// 			exportBook:	true,
-// 		})
-// 	},
 
 	//添加手机通讯录联系人
 	addressBook(){
@@ -314,15 +216,16 @@ Page({
 												code: code
 											},
 											success(res) {
-												console.log(res);
+												app.globalData.unionId = res.data.data.unionId
 												
-												let unionId = res.data.data.unionId
+												// let unionId = res.data.data.unionId
 												wx.request({
 													url: utils.baseURL + '/card/scan/export/touniversal',
 													method: 'POST',
 													data: {
-														unionId,
-														// unionId: 'oeSpI6PPQtVcCDLr54BWE5wlwU5Y',
+														// unionId,
+														unionId:app.globalData.unionId,
+	
 														tel: This.data.formItem.telCell
 													},
 													success(res){

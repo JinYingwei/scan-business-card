@@ -13,22 +13,21 @@ Page({
 		isShow: true,
 		screenWidth: 0,
 		screenHeight: 0,
-		resizeOnOff:true,
-		tempImagePath:''
+		resizeOnOff: true,
+		tempImagePath: '',
 	},
 	// 拍照
 	takePhoto() {
-		
 		const ctx = wx.createCameraContext()
 		let This = this
 		ctx.takePhoto({
 			quality: 'high',
 			success: (res) => {
-				
+
 				This.setData({
-						file: res.tempImagePath,
-						isShow: false
-					}),
+					file: res.tempImagePath,
+					isShow: false
+				}),
 					wx.showLoading({
 						title: '加载中',
 					})
@@ -40,7 +39,7 @@ Page({
 						console.log(res)
 					}
 				})
-				This.setData({tempImagePath})
+				This.setData({ tempImagePath })
 				This.drawCanvas(tempImagePath)
 			}
 		})
@@ -61,7 +60,7 @@ Page({
 			success(res) {
 				const data = JSON.parse(res.data).data.cardScan
 				wx.hideLoading()
-				if (data.cardName && data.telCell) {
+				if (data.telCell) {
 					var obj = data
 					for (var key in data) {
 						if (data[key] != null && key != 'cardImgUrl') {
@@ -70,8 +69,9 @@ Page({
 							}
 						}
 					}
-					//赋值全局变量
-					console.log(obj);
+					
+					wx.setStorageSync('list',data.labelList)
+					
 					app.globalData.formItem = obj
 					wx.navigateTo({
 						url: '/pages/card/card'
@@ -117,8 +117,6 @@ Page({
 				h = res.windowHeight
 			}
 		})
-
-		console.log(w, h);
 		wx.getImageInfo({
 			src: tempFilePaths,
 			success(res) {
@@ -129,11 +127,7 @@ Page({
 				} else {
 					ctx.drawImage(tempFilePaths, 0, 0, w, h);
 				}
-
-				// ctx.drawImage(tempFilePaths, 0, 0, res.width,res.height);
-
 				ctx.draw(false, () => {
-					
 					that.prodImageOpt();
 				});
 			}
@@ -147,7 +141,6 @@ Page({
 			fileType: 'jpg',
 			canvasId: 'attendCanvasId',
 			success(res) {
-				console.log(res)
 				that.api(res.tempFilePath);
 			}
 		})
@@ -162,13 +155,12 @@ Page({
 			success(res) {
 				// tempFilePath可以作为img标签的src属性显示图片
 				const tempFilePaths = res.tempFilePaths[0]
-
 				This.api(tempFilePaths)
 			}
 		})
 	},
-	onResize: function(res) {
-		console.log('监听',res);
+	onResize: function (res) {
+		console.log('监听', res);
 		let w = res.size.windowWidth // 新的显示区域宽度
 		let h = res.size.windowHeight // 新的显示区域高度
 		this.setData({
@@ -179,8 +171,6 @@ Page({
 	onShow() {
 		try {
 			const res = wx.getSystemInfoSync()
-			
-
 			const {
 				windowHeight,
 				windowWidth

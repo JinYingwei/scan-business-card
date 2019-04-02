@@ -141,7 +141,7 @@ Page({
     getCardInfo(e) {
         let id = e.currentTarget.dataset.id
         wx.navigateTo({
-            url: '/pages/card/card?id=' + id
+            url: '/pages/card/card?id=' + id 
         })
     },
     //标签
@@ -184,16 +184,57 @@ Page({
     //添加标签
     handleAddLabelClick() {
         if (this.data.labelVal) {
+            let This = this
             wx.request({
-                url: 'https://URL',
-                data: {},
-                method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
-                // header: {}, // 设置请求的 header
+                url: utils.baseURL+'/card/scan/addLabelByOpenId',
+                data: {
+                    openId:app.globalData.openId,
+                    labelName:This.data.labelVal
+                },
+                method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+                header: {
+                    'Content-Type':'application/json'
+                }, // 设置请求的 header
                 success: function(res) {
-                    // success
+                    console.log(res);
+                    if(res.data.code == 0){
+                        wx.showToast({
+                            title: '标签添加成功',
+                            icon: 'success',
+                            duration: 800
+                        })
+                        This.getLabelByOpenId()
+                    }
                 },
             })
         }
+    },
+    // 通过标签获取名片列表
+    handleGetList(e){
+        let {id} = e.target.dataset
+        let This = this
+        wx.request({
+            url:utils.baseURL + '/card/scan/get/cardlistbyopenid',
+            method:'GET',
+            data:{
+                openId:app.globalData.openId,
+                labelId:id
+            },
+            success(res){
+                console.log(res);
+                if(res.data.code == 0){
+                    let cardListInfo = res.data.data.data.key
+                    let n = 0
+                    Object.keys(cardListInfo).forEach((key) => {
+                        n += cardListInfo[key].length
+                    })
+                    This.setData({
+                        cardList: cardListInfo,
+                        cardNumber: n
+                    })
+                }
+            }
+        })
     },
     //遮罩层隐藏
     handleCancelClick() {
@@ -211,8 +252,10 @@ Page({
         });
         console.log(e);
     },
-    // 删除标签
-    handleShowModal() {
+    //删除标签
+    handleShowModal(e) {
+        let {id} = e.target.dataset
+        let This = this
         wx.showModal({
             title: '删除标签',
             content: '是否删除此标签',
@@ -220,12 +263,25 @@ Page({
                 if (res.confirm) {
                     console.log('用户点击确定')
                     wx.request({
-                        url: 'https://URL',
-                        data: {},
-                        method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
-                        // header: {}, // 设置请求的 header
+                        url: utils.baseURL + '/card/scan/deleteLabelByOpenId',
+                        data: {
+                            id,
+                            openId: app.globalData.openId
+                        },
+                        method: 'POST', 
+                        header: {
+                            'Content-Type':'application/x-www-form-urlencoded'
+                        }, // 设置请求的 header
                         success: function(res) {
-                            // success
+                            console.log(res);
+                            if(res.data.code==0){
+                                wx.showToast({
+                                    title: '删除标签成功',
+                                    icon: 'success',
+                                    duration: 800
+                                })
+                                This.getLabelByOpenId()
+                            }
                         }
                     })
                 } else if (res.cancel) {
@@ -241,11 +297,12 @@ Page({
             url: utils.baseURL + '/card/scan/getLabelByOpenId',
             method: 'GET',
             data: {
-                openId: app.globalData.appid
+                openId: app.globalData.openId
             },
             success(res) {
-                let { labelList } = res.data.data
-                console.log(labelList);
+                let {labelList} = res.data.data
+
+                app.globalData.labelList = labelList
                 if (res.data.code == 0) {
                     This.setData({
                         labelList

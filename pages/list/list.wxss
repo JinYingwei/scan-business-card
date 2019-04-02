@@ -6,14 +6,15 @@
 
 .header {
     padding: 33rpx 20rpx 0;
-    height: 140rpx;
+    /* height: 140rpx; */
     background: #f9f9f9;
 }
 
-.top {
-    height: 56rpx;
+.top image{
+    width: 100%;
+    /* height: 56rpx;
     background: #e15671;
-    margin-bottom: 14rpx;
+    margin-bottom: 14rpx; */
 }
 
 .search-top {
@@ -168,8 +169,7 @@
     position: fixed;
     left: 0;
     top: 0;
-    background: #000;
-    opacity: .8;
+    background: rgba(0,0,0,.7);
     width: 100%;
     height: 100vh;
     z-index: 999999;
@@ -204,7 +204,7 @@
     height: 50rpx;
     background: #ddd;
     border-radius: 20rpx;
-    font-size: 20rpx;
+    font-size: 26rpx;
     color: #333;
 }
 
@@ -215,12 +215,13 @@
 }
 
 .mask-ht view {
-    font-size: 20rpx;
+    font-size: 26rpx;
     margin-right: 15rpx;
     background: #0593d3;
-    border-radius: 5rpx;
+    border-radius: 10rpx;
     padding: 5rpx;
     color: #fff;
+    margin-bottom: 10rpx;
 }
 
 .mask-btn {

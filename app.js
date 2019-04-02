@@ -8,7 +8,7 @@ App({
 		openId: '',
 		unionId: '',
 		code: '',
-
+		labelList:'',	//标签列表
 		formItem: {
 			cardName: '', //名字
 			cardTitle: '', //职位
@@ -46,5 +46,5 @@ App({
 				}
 			}
 		})
-	}
+	},
 })

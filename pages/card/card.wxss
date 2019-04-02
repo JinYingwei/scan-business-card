@@ -144,7 +144,6 @@ input {
     right: 0;
     top: 0;
     z-index: 999;
-    /* border: 1px solid #333; */
 }
 
 .common-box .bus-select>view {
@@ -160,8 +159,6 @@ input {
     right: 0;
     top: 18rpx;
 }
-
-.check-box label {}
 
 .card-down {
     width: 40rpx;
@@ -290,4 +287,23 @@ input {
     margin-left: auto;
     background: transparent;
     line-height: 0;
+}
+/* 分组 */
+checkbox-group{
+    width: 440rpx;
+    font-size: 24rpx;
+    display: inline-block;
+    margin-left: auto;
+}
+checkbox .wx-checkbox-input {
+    width: 20rpx;
+    height: 20rpx;
+}
+.fz{
+    height: auto;
+}
+.fz view{
+    display: inline-block;
+    width: 192rpx;
+    vertical-align: top;
 }
