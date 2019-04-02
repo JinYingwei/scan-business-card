@@ -23,8 +23,6 @@ Page({
 		if(options.id){
 			this.cardbyid(options.id)
 		}
-		console.log(options.id);
-		console.log(app.globalData.labelList);
 		let list = wx.getStorageSync('list')
 		if(!options.id){
 			this.setData({
@@ -37,8 +35,6 @@ Page({
 				items:app.globalData.labelList
 			})
 		}
-		
-		console.log(list);
 	},
 	checkboxChange(e) {
 		this.data.labelChecked = e.detail.value
@@ -69,15 +65,49 @@ Page({
 				openId:app.globalData.openId
 			},
 			success(res) {
-				// This.data.tel = res.data.data.telCell.slice(0,This.data.tel.length-1)
 				This.data.id = res.data.data.id
-				// res.data.data.cardImgUrl = res.data.data.cardImgUrl+'0'
-				console.log(res);
+				let totalLabels = res.data.data.labelList	//全部标签
+				let currentLabels = res.data.data.addedLabelList	//选择标签
+
+
+				// totalLabels.map((item,index)=>{
+				// 	currentLabels.map((item,index)=>{
+					
+				// 	})
+				// })
+
+
+				for (let index = 0; index < totalLabels.length; index++) {
+					const element = totalLabels[index];
+					for (let j = 0; j < currentLabels.length; j++) {
+						const element2 = currentLabels[j];
+						if(element.id == element2.id){
+							console.log(element2);
+							totalLabels[index].checked = true
+						}
+						
+					}
+					
+				}
+
+				
+				// totalLabels.forEach((item,index)=>{
+				// 	if(item.id == currentLabels[index].id){
+				// 		console.log(item);
+				// 		totalLabels[index].checked = true
+				// 	}else{
+				// 		totalLabels[index].checked = false
+				// 	}
+				// })
+				
+				console.log(totalLabels);
+				console.log(currentLabels);
+				// This.items = totalLabels
 				This.setData({
 					formItem: res.data.data,
-					is:false
+					is:false,
+					items:totalLabels
 				})
-				
 			}
 		})
 	},
@@ -172,7 +202,6 @@ Page({
 	addressBook(){
 		let cardData = this.data.formItem
 		let phoneNumber = cardData.telCell.slice(0,cardData.telCell.length-1)
-		
 		wx.addPhoneContact({
 			firstName: cardData.cardName.slice(1,cardData.cardName.length),
 			lastName: cardData.cardName.slice(0,1),
