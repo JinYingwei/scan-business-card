@@ -14,7 +14,7 @@
 	"compileType": "miniprogram",
 	"libVersion": "2.6.2",
 	"appid": "wx16c59e3f46f296db",
-	"projectname": "san",
+	"projectname": "card",
 	"debugOptions": {
 		"hidedInDevtools": []
 	},

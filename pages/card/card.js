@@ -85,9 +85,7 @@ Page({
 							console.log(element2);
 							totalLabels[index].checked = true
 						}
-						
 					}
-					
 				}
 
 				

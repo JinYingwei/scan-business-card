@@ -7,7 +7,9 @@
 	position: relative;
 }
 .card-img-box,.album-img-box{
-	margin-top: 40px;
+	position: absolute;
+	right: 30rpx;
+	z-index: 10;
 }
 .card-img-box{
 	width: 50px;
@@ -17,9 +19,10 @@
 	background: #000;
 	justify-content: center;
 	margin-left: auto;
-	margin-right: 32px;
+	/* margin-right: 32px; */
 	opacity:.7;
 	border-radius: 5px;
+	top: 50rpx;
 }
 .album-img-box{
 	width: 50px;
@@ -29,9 +32,11 @@
 	background: #000;
 	justify-content: center;
 	margin-left: auto;
-	margin-right: 32px;
+	/* margin-right: 32px; */
 	opacity:.7;
 	border-radius: 5px;
+	top: 200rpx;
+	
 }
 .card-img,.album-img{
 	transform: rotateZ(-90deg);
@@ -47,13 +52,18 @@
 	
 }
 .takePhoto-box{
-	text-align: center;
+	position: absolute;
+	left: 0;
+	right: 0;
+	margin: auto;
+	bottom: 30rpx;
+	/* text-align: center; */
 	border-radius: 50%;
 	width: 150rpx;
 	height: 150rpx;
 	background: #fff;
 	color: #fff;
-	margin: 100rpx auto;
+	/* margin: 100rpx auto; */
 }	
 .takePhoto-box button{
 	border-radius: 50%;
@@ -65,15 +75,23 @@
 .takePhoto-box button::after{
 	border-radius: 50%;
 }
+.content{
+	height: 100%;
+	position: relative;
+}
 .focus-box{
-	text-align: center;
+	width: 530rpx;
+	height: 900rpx;
+	position: absolute;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto;
 }
 .focus{
-	/* position: absolute;
-	left: 50%;
-	top: 50%;
-	margin: -300rpx 0 0 -300rpx; */
-	width: 65%;
-	height: 780rpx;
-	margin: 0 auto;
+	width: 100%;
+	
+	
+	/* margin: 0 auto; */
 }
