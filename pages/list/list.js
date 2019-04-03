@@ -183,7 +183,23 @@ Page({
     },
     //添加标签
     handleAddLabelClick() {
-        if (this.data.labelVal) {
+        let This = this
+        let labelList = this.data.labelList;
+        let onOff = true
+        labelList.map(item=>{
+            if(item.labelName == This.data.labelVal){
+                wx.showToast({
+                    title: '标签不能重名',
+                    icon: 'none',
+                    duration: 800
+                })
+                console.log(1);
+                onOff = false
+            }
+            console.log(item.labelName);
+        })
+
+        if (this.data.labelVal && onOff) {
             let This = this
             wx.request({
                 url: utils.baseURL+'/card/scan/addLabelByOpenId',
@@ -196,7 +212,7 @@ Page({
                     'Content-Type':'application/json'
                 }, // 设置请求的 header
                 success: function(res) {
-                    console.log(res);
+                    console.log(res)
                     if(res.data.code == 0){
                         wx.showToast({
                             title: '标签添加成功',
@@ -205,6 +221,9 @@ Page({
                         })
                         This.getLabelByOpenId()
                     }
+                    This.setData({
+                        labelVal:''
+                    })
                 },
             })
         }
