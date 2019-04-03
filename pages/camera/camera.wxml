@@ -20,7 +20,9 @@
 			</cover-view>
 			
 			<cover-view class="takePhoto-box" bindtap="takePhoto" >
-				<!-- <button class="takePhoto" type="default" bindtap="takePhoto" size='mini'>拍照</button> -->
+				<cover-view class="noir">
+					<cover-view class="white"></cover-view>
+				</cover-view>
 			</cover-view>
 		</cover-view>
 	</camera>
