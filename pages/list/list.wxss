@@ -10,7 +10,7 @@
     background: #f9f9f9;
 }
 
-.top image{
+.top image {
     width: 100%;
     /* height: 56rpx;
     background: #e15671;
@@ -169,7 +169,7 @@
     position: fixed;
     left: 0;
     top: 0;
-    background: rgba(0,0,0,.7);
+    background: rgba(0, 0, 0, .7);
     width: 100%;
     height: 100vh;
     z-index: 999999;
@@ -193,6 +193,7 @@
     text-align: center;
     border-bottom: 1px solid #ddd;
     line-height: 60rpx;
+    font-size: 30rpx;
 }
 
 .mask-search {
@@ -201,9 +202,9 @@
 
 .mask-search input {
     padding-left: 40rpx;
-    height: 50rpx;
+    height: 70rpx;
     background: #ddd;
-    border-radius: 20rpx;
+    border-radius: 30rpx;
     font-size: 26rpx;
     color: #333;
 }
@@ -215,27 +216,34 @@
 }
 
 .mask-ht view {
-    font-size: 26rpx;
-    margin-right: 15rpx;
+    width: 110rpx;
+    font-size: 28rpx;
+    margin-right: 20rpx;
     background: #0593d3;
     border-radius: 10rpx;
-    padding: 5rpx;
+    padding: 10rpx;
     color: #fff;
-    margin-bottom: 10rpx;
+    margin-bottom: 20rpx;
+    text-align: center;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .mask-btn {
     margin-top: 40rpx;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
+    font-size: 30rpx;
 }
 
 .mask-btn view {
     width: 200rpx;
-    height: 50rpx;
-    line-height: 50rpx;
+    height: 60rpx;
+    line-height: 60rpx;
     text-align: center;
     background: #eee;
     border: 1px solid #aaa;
     border-radius: 30rpx;
+    color: #666;
 }

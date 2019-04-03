@@ -46,7 +46,8 @@
 }
 
 .card-logo-box {
-    margin: 0 29rpx 0 45rpx;
+    /* margin: 0 29rpx 0 45rpx; */
+    text-align: center;
 }
 
 .pic {
@@ -59,13 +60,16 @@
     display: inline-block;
     position: relative;
 }
-.pic image{
+
+.pic image {
     width: 100%;
     position: absolute;
     width: 100%;
     top: -96%;
+    left: 0;
     transform: rotate(-90deg);
 }
+
 .pic .card-logo {
     position: absolute;
     top: -96%;
@@ -294,21 +298,27 @@ input {
     background: transparent;
     line-height: 0;
 }
+
+
 /* 分组 */
-checkbox-group{
+
+checkbox-group {
     width: 440rpx;
     font-size: 24rpx;
     display: inline-block;
     margin-left: auto;
 }
+
 checkbox .wx-checkbox-input {
     width: 20rpx;
     height: 20rpx;
 }
-.fz{
+
+.fz {
     height: auto;
 }
-.fz view{
+
+.fz view {
     display: inline-block;
     width: 192rpx;
     vertical-align: top;

@@ -5,14 +5,14 @@
 			<view class='main-content'>
 				<view class='card-logo-box'>
 					<view class="pic">
-						<image class=" {{  is?'card-logo':'' }} " mode="widthFix" src='{{formItem.cardImgUrl}}' bindtap="handlePreview"></image>
+						<image class="{{  is?'card-logo':'' }} " mode="widthFix" src='{{formItem.cardImgUrl}}' bindtap="handlePreview"></image>
 					</view>
-					<view class="btnBox">
+					<!-- <view class="btnBox">
 						<button type='default' class='export' open-type="getUserInfo" bindtap="exportCard" size='mini'>导 出</button>
 						<button type='default' size='mini' class='open' bindtap="openProgress">
 							柳哨名片
 						</button>
-					</view>
+					</view> -->
 				</view>
 				<view class='nameUser-box'>
 					<input type="text" class='nameUser' data-model="formItem.cardName" value='{{formItem.cardName}}' bindinput="inputWacth"/>

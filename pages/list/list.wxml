@@ -7,7 +7,7 @@
 		<view class='search-top'>
 			<view class='search-btn'>
 				<image class='add-search' src='http://ii.sinelinked.com/miniProgramAssets/add-book.png'></image>
-				<input class='search-input'  type='text' placeholder='搜索联系人' data-model="searchVal" value="{{searchVal}}" bindinput="handleSearch"/>
+				<input class='search-input'  type='text' placeholder='搜索联系人' data-model="searchVal" value="{{searchVal}}" bindfocus="handleTagHide" bindinput="handleSearch"/>
 			</view>
 			<view class='add-box' bindtap="newAdd">
 				<image class='add' src='http://ii.sinelinked.com/miniProgramAssets/card-list.png'></image>
@@ -45,7 +45,7 @@
 		<scroll-view scroll-y="true" class='content'>
 			<view class='item' wx:for="{{cardList}}" wx:key="item">
 				<view class='initials'>{{index}}</view>
-				<view class='item-li' bindlongpress="deleteUser" data-id="{{item.id}}" bindtap="getCardInfo" wx:for="{{item}}"
+				<view class='item-li' bindlongpress="handleShowMenu" data-id="{{item.id}}" data-cell="{{item.telCell}}" bindtap="getCardInfo" wx:for="{{item}}"
 				 wx:key="item">
 					<image class='user-logo' src='http://ii.sinelinked.com/miniProgramAssets/card-lg.png'></image>
 					<text class='userName'>{{item.cardName}}</text>

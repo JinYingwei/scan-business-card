@@ -100,11 +100,79 @@ Page({
         maskShow: true, //遮罩层
         labelVal: '', //标签内容
     },
-    //长按删除
-    deleteUser(e) {
+    //长按显示弹框
+    handleShowMenu(e) {
         let id = e.currentTarget.dataset.id,
+            tellCell = e.currentTarget.dataset.cell,
             This = this;
         console.log(e);
+        wx.showActionSheet({
+            itemList: ['导出名片', '柳哨名片', '删除名片'],
+            success(res) {
+                // 导出名片
+                if (res.tapIndex == 0) {
+
+                }
+                // 打开柳哨名片
+                if (res.tapIndex == 1) {
+                    This.openProgress(tellCell)
+                }
+                // 删除名片
+                if (res.tapIndex == 2) {
+                    This.deleteUser(id)
+                }
+            },
+            fail(res) {
+                console.log(res.errMsg)
+            }
+        })
+    },
+    // 导出名片
+
+
+    // 打开柳哨名片
+    openProgress(tel) {
+        let This = this
+            //查询通用名片相关的名片信息
+        wx.request({
+            url: utils.baseURL + '/card/scan/get/universalinfo',
+            method: 'GET',
+            data: {
+                tel: tel
+            },
+            success(res) {
+                console.log(res);
+                if (res.data.code == 0) {
+                    wx.navigateToMiniProgram({
+                        appId: 'wx3facaaa31f346d16',
+                        path: 'pages/card/person?cardId=' + This.data.cardId,
+                        extraData: {
+                            //传的数据
+                        },
+                        envVersion: 'develop',
+                        success(res) {
+                            // 打开成功
+                            if (res.data.code == 0) {
+                                console.log('打开成功');
+                            }
+                        }
+                    })
+                } else {
+                    wx.showToast({
+                        title: '没有注册通用名片',
+                        icon: 'none',
+                        duration: 1000
+                    })
+                }
+            }
+        })
+    },
+    // 删除
+    deleteUser(id) {
+        // let id = e.currentTarget.dataset.id,
+        //     This = this;
+        // console.log(e);
+        let This = this
         wx.showModal({
             title: '提示',
             content: '是否确认删除',
@@ -141,7 +209,7 @@ Page({
     getCardInfo(e) {
         let id = e.currentTarget.dataset.id
         wx.navigateTo({
-            url: '/pages/card/card?id=' + id 
+            url: '/pages/card/card?id=' + id
         })
     },
     //标签
@@ -186,8 +254,8 @@ Page({
         let This = this
         let labelList = this.data.labelList;
         let onOff = true
-        labelList.map(item=>{
-            if(item.labelName == This.data.labelVal){
+        labelList.map(item => {
+            if (item.labelName == This.data.labelVal) {
                 wx.showToast({
                     title: '标签不能重名',
                     icon: 'none',
@@ -202,18 +270,18 @@ Page({
         if (this.data.labelVal && onOff) {
             let This = this
             wx.request({
-                url: utils.baseURL+'/card/scan/addLabelByOpenId',
+                url: utils.baseURL + '/card/scan/addLabelByOpenId',
                 data: {
-                    openId:app.globalData.openId,
-                    labelName:This.data.labelVal
+                    openId: app.globalData.openId,
+                    labelName: This.data.labelVal
                 },
                 method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
                 header: {
-                    'Content-Type':'application/json'
+                    'Content-Type': 'application/json'
                 }, // 设置请求的 header
                 success: function(res) {
                     console.log(res)
-                    if(res.data.code == 0){
+                    if (res.data.code == 0) {
                         wx.showToast({
                             title: '标签添加成功',
                             icon: 'success',
@@ -222,26 +290,26 @@ Page({
                         This.getLabelByOpenId()
                     }
                     This.setData({
-                        labelVal:''
+                        labelVal: ''
                     })
                 },
             })
         }
     },
     // 通过标签获取名片列表
-    handleGetList(e){
-        let {id} = e.target.dataset
+    handleGetList(e) {
+        let { id } = e.target.dataset
         let This = this
         wx.request({
-            url:utils.baseURL + '/card/scan/get/cardlistbyopenid',
-            method:'GET',
-            data:{
-                openId:app.globalData.openId,
-                labelId:id
+            url: utils.baseURL + '/card/scan/get/cardlistbyopenid',
+            method: 'GET',
+            data: {
+                openId: app.globalData.openId,
+                labelId: id
             },
-            success(res){
+            success(res) {
                 console.log(res);
-                if(res.data.code == 0){
+                if (res.data.code == 0) {
                     let cardListInfo = res.data.data.data.key
                     let n = 0
                     Object.keys(cardListInfo).forEach((key) => {
@@ -249,7 +317,8 @@ Page({
                     })
                     This.setData({
                         cardList: cardListInfo,
-                        cardNumber: n
+                        cardNumber: n,
+                        searchVal: ''
                     })
                 }
             }
@@ -273,7 +342,7 @@ Page({
     },
     //删除标签
     handleShowModal(e) {
-        let {id} = e.target.dataset
+        let { id } = e.target.dataset
         let This = this
         wx.showModal({
             title: '删除标签',
@@ -287,13 +356,13 @@ Page({
                             id,
                             openId: app.globalData.openId
                         },
-                        method: 'POST', 
+                        method: 'POST',
                         header: {
-                            'Content-Type':'application/x-www-form-urlencoded'
+                            'Content-Type': 'application/x-www-form-urlencoded'
                         }, // 设置请求的 header
                         success: function(res) {
                             console.log(res);
-                            if(res.data.code==0){
+                            if (res.data.code == 0) {
                                 wx.showToast({
                                     title: '删除标签成功',
                                     icon: 'success',
@@ -319,7 +388,7 @@ Page({
                 openId: app.globalData.openId
             },
             success(res) {
-                let {labelList} = res.data.data
+                let { labelList } = res.data.data
 
                 app.globalData.labelList = labelList
                 if (res.data.code == 0) {
@@ -330,7 +399,12 @@ Page({
             }
         })
     },
-
+    // 表单触发焦点
+    handleTagHide() {
+        this.setData({
+            isChecked: false
+        })
+    },
     // 搜索
     handleSearch(e) {
         let data = app.globalData
