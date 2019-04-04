@@ -2,7 +2,7 @@
 <view class='container'>
 	<view class='header'>
 		<view class="top">
-			<image src="http://ii.sinelinked.com/miniProgramAssets/gy03.png" mode="widthFix"></image>
+			<navigator url="../welfare/welfare"><image src="http://ii.sinelinked.com/miniProgramAssets/gy03.png" mode="widthFix"></image></navigator>
 		</view>
 		<view class='search-top'>
 			<view class='search-btn'>

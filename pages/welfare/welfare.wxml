@@ -1,0 +1,6 @@
+<!--welfare.wxml-->
+<view class="container">
+    <image src="http://ii.sinelinked.com/miniProgramAssets/gy.png" mode="scaleToFill"></image>
+</view>
+
+

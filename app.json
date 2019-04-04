@@ -2,12 +2,15 @@
   "pages": [
     "pages/camera/camera",
     "pages/list/list",
-    "pages/card/card"
+    "pages/card/card",
+    "pages/welfare/welfare"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTextStyle": "black"
   },
-	"navigateToMiniProgramAppIdList": ["wx3facaaa31f346d16"]
+  "navigateToMiniProgramAppIdList": [
+    "wx3facaaa31f346d16"
+  ]
 }
