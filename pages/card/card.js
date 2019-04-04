@@ -117,7 +117,7 @@ Page({
             this.modifyClick()
         }
         wx.navigateTo({
-            url: '../list/list'
+            url: '../camera/camera'
         })
     },
     //监听表单变化
@@ -130,7 +130,7 @@ Page({
     //修改
     modifyClick() {
         var This = this
-        if(This.data.formItem.telCell){
+        if (This.data.formItem.telCell) {
             wx.request({
                 url: utils.baseURL + '/card/scan/update/cardcollection',
                 method: 'POST',
@@ -163,7 +163,7 @@ Page({
                     }
                 }
             })
-        }else{
+        } else {
             wx.showToast({
                 title: '手机不能为空',
                 icon: 'none',
@@ -174,7 +174,7 @@ Page({
     //保存
     saveClick() {
         var This = this
-        if(This.data.formItem.telCell){
+        if (This.data.formItem.telCell) {
             wx.request({
                 url: utils.baseURL + '/card/scan/add/cardcollection',
                 method: 'POST',
@@ -205,7 +205,7 @@ Page({
                     }
                 }
             })
-        }else{
+        } else {
             wx.showToast({
                 title: '手机不能为空',
                 icon: 'none',

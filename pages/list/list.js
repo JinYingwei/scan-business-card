@@ -99,29 +99,29 @@ Page({
         labelList: [], //标签
         maskShow: true, //遮罩层
         labelVal: '', //标签内容
-        labelId:'', //存通讯录用户id
-        labelCell:'',   //存通讯录用户手机
-        labelName:'',   //用户名
-        menuShow:true,  //mask菜单
-        
+        labelId: '', //存通讯录用户id
+        labelCell: '', //存通讯录用户手机
+        labelName: '', //用户名
+        menuShow: true, //mask菜单
+
     },
     //长按显示弹框
     handleShowMenu(e) {
         this.setData({
-            menuShow:false
+            menuShow: false
         })
         this.data.labelCell = e.currentTarget.dataset.cell
         this.data.labelId = e.currentTarget.dataset.id
         this.data.labelName = e.currentTarget.dataset.name
-        // let id = e.currentTarget.dataset.id,
-        //     tellCell = e.currentTarget.dataset.cell,
-        //     This = this;
-        // console.log(e);
-        // wx.showActionSheet({
-        //     itemList: ['导出名片', '柳哨名片', '删除名片'],
-        //     success(res) {
-        //         // 导出名片
-        //         if (res.tapIndex == 0) {
+            // let id = e.currentTarget.dataset.id,
+            //     tellCell = e.currentTarget.dataset.cell,
+            //     This = this;
+            // console.log(e);
+            // wx.showActionSheet({
+            //     itemList: ['导出名片', '柳哨名片', '删除名片'],
+            //     success(res) {
+            //         // 导出名片
+            //         if (res.tapIndex == 0) {
 
         //         }
         //         // 打开柳哨名片
@@ -138,25 +138,25 @@ Page({
         //     }
         // })
     },
-   
+
     //mask菜单隐藏
-    handleMaskHide(){
+    handleMaskHide() {
         this.setData({
-            menuShow:true
+            menuShow: true
         })
     },
-     //添加手机通讯录联系人
-     addressBook() {
+    //添加手机通讯录联系人
+    addressBook() {
         let This = this
-        // let cardData = this.data.formItem
-        // let phoneNumber = cardData.telCell.slice(0, cardData.telCell.length - 1)
+            // let cardData = this.data.formItem
+            // let phoneNumber = cardData.telCell.slice(0, cardData.telCell.length - 1)
         wx.addPhoneContact({
             // firstName: cardData.cardName.slice(1, cardData.cardName.length),
             // lastName: cardData.cardName.slice(0, 1),
             // mobilePhoneNumber: phoneNumber,
-            firstName: This.data.labelName.slice(1,This.data.labelName.length),
-            lastName:  This.data.labelName.slice(0, 1),
-            mobilePhoneNumber:This.data.labelCell,
+            firstName: This.data.labelName.slice(1, This.data.labelName.length),
+            lastName: This.data.labelName.slice(0, 1),
+            mobilePhoneNumber: This.data.labelCell,
             success(res) {
                 wx.showToast({
                     title: '导出通讯录成功',
@@ -205,8 +205,8 @@ Page({
                                                     data: {
                                                         // unionId,
                                                         unionId: app.globalData.unionId,
-                                                        tel:This.data.labelCell
-                                                        // tel: This.data.formItem.telCell
+                                                        tel: This.data.labelCell
+                                                            // tel: This.data.formItem.telCell
                                                     },
                                                     success(res) {
                                                         //导出通用名片
@@ -240,9 +240,9 @@ Page({
     //导出
     exportCard() {
         this.universalCard()
-       
-            this.addressBook()
-        
+
+        this.addressBook()
+
         // if (this.data.onOff || this.data.id) {
         //     this.addressBook()
         //     this.universalCard()
@@ -263,18 +263,17 @@ Page({
             method: 'GET',
             data: {
                 // tel: tel
-                tel:This.data.labelCell
+                tel: This.data.labelCell
             },
             success(res) {
-                console.log(res);
                 if (res.data.code == 0) {
                     wx.navigateToMiniProgram({
                         appId: 'wx3facaaa31f346d16',
-                        path: 'pages/card/person?cardId=' + This.data.cardId,
+                        path: '/pages/card/person/index/index?cardId=' + This.data.cardId,
                         extraData: {
                             //传的数据
                         },
-                        envVersion: 'develop',
+                        // envVersion: 'develop',
                         success(res) {
                             // 打开成功
                             if (res.data.code == 0) {
@@ -378,14 +377,14 @@ Page({
         let labelList = this.data.labelList;
         let onOff = true
 
-        if(this.data.labelVal == ''){
+        if (this.data.labelVal == '') {
             wx.showToast({
                 title: '标签不能为空',
                 icon: 'none',
                 duration: 800
             })
         }
-        
+
         labelList.map(item => {
             if (item.labelName == This.data.labelVal) {
                 wx.showToast({
