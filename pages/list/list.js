@@ -99,37 +99,161 @@ Page({
         labelList: [], //标签
         maskShow: true, //遮罩层
         labelVal: '', //标签内容
+        labelId:'', //存通讯录用户id
+        labelCell:'',   //存通讯录用户手机
+        labelName:'',   //用户名
+        menuShow:true,  //mask菜单
+        
     },
     //长按显示弹框
     handleShowMenu(e) {
-        let id = e.currentTarget.dataset.id,
-            tellCell = e.currentTarget.dataset.cell,
-            This = this;
-        console.log(e);
-        wx.showActionSheet({
-            itemList: ['导出名片', '柳哨名片', '删除名片'],
-            success(res) {
-                // 导出名片
-                if (res.tapIndex == 0) {
+        this.setData({
+            menuShow:false
+        })
+        this.data.labelCell = e.currentTarget.dataset.cell
+        this.data.labelId = e.currentTarget.dataset.id
+        this.data.labelName = e.currentTarget.dataset.name
+        // let id = e.currentTarget.dataset.id,
+        //     tellCell = e.currentTarget.dataset.cell,
+        //     This = this;
+        // console.log(e);
+        // wx.showActionSheet({
+        //     itemList: ['导出名片', '柳哨名片', '删除名片'],
+        //     success(res) {
+        //         // 导出名片
+        //         if (res.tapIndex == 0) {
 
-                }
-                // 打开柳哨名片
-                if (res.tapIndex == 1) {
-                    This.openProgress(tellCell)
-                }
-                // 删除名片
-                if (res.tapIndex == 2) {
-                    This.deleteUser(id)
-                }
-            },
-            fail(res) {
-                console.log(res.errMsg)
+        //         }
+        //         // 打开柳哨名片
+        //         if (res.tapIndex == 1) {
+        //             This.openProgress(tellCell)
+        //         }
+        //         // 删除名片
+        //         if (res.tapIndex == 2) {
+        //             This.deleteUser(id)
+        //         }
+        //     },
+        //     fail(res) {
+        //         console.log(res.errMsg)
+        //     }
+        // })
+    },
+   
+    //mask菜单隐藏
+    handleMaskHide(){
+        this.setData({
+            menuShow:true
+        })
+    },
+     //添加手机通讯录联系人
+     addressBook() {
+        let This = this
+        // let cardData = this.data.formItem
+        // let phoneNumber = cardData.telCell.slice(0, cardData.telCell.length - 1)
+        wx.addPhoneContact({
+            // firstName: cardData.cardName.slice(1, cardData.cardName.length),
+            // lastName: cardData.cardName.slice(0, 1),
+            // mobilePhoneNumber: phoneNumber,
+            firstName: This.data.labelName.slice(1,This.data.labelName.length),
+            lastName:  This.data.labelName.slice(0, 1),
+            mobilePhoneNumber:This.data.labelCell,
+            success(res) {
+                wx.showToast({
+                    title: '导出通讯录成功',
+                    icon: 'success',
+                    duration: 1000
+                })
             }
         })
     },
-    // 导出名片
 
+    //导出到通用名片系统
+    universalCard() {
+        let This = this
+        let code = '';
+        wx.login({
+            success(res) {
+                if (res.code) {
+                    code = res.code
+                    wx.getSetting({
+                        success(res) {
+                            if (res.authSetting['scope.userInfo']) {
+                                // 已经授权，可以直接调用 getUserInfo 获取头像昵称
+                                let iv = '',
+                                    encryptedData;
+                                wx.getUserInfo({
+                                    success(res) {
+                                        console.log(res)
+                                        iv = res.iv
+                                        encryptedData = res.encryptedData
+                                            //拿unionId
+                                        wx.request({
+                                            url: utils.baseURL + '/card/scan/decodeOpenId',
+                                            method: 'GET',
+                                            data: {
+                                                encryptedData,
+                                                iv,
+                                                code: code
+                                            },
+                                            success(res) {
+                                                app.globalData.unionId = res.data.data.unionId
 
+                                                // let unionId = res.data.data.unionId
+                                                wx.request({
+                                                    url: utils.baseURL + '/card/scan/export/touniversal',
+                                                    method: 'POST',
+                                                    data: {
+                                                        // unionId,
+                                                        unionId: app.globalData.unionId,
+                                                        tel:This.data.labelCell
+                                                        // tel: This.data.formItem.telCell
+                                                    },
+                                                    success(res) {
+                                                        //导出通用名片
+                                                        if (res.data.code == 0) {
+                                                            wx.showToast({
+                                                                title: '导出通用名片成功',
+                                                                icon: 'success',
+                                                                duration: 1000
+                                                            })
+                                                        } else {
+                                                            wx.showToast({
+                                                                title: '您还未注册通用名片，导入失败',
+                                                                icon: 'none',
+                                                                duration: 1000
+                                                            })
+                                                        }
+                                                    }
+                                                })
+                                            }
+                                        })
+                                    }
+                                })
+                            }
+                        }
+                    })
+                }
+            }
+        })
+    },
+
+    //导出
+    exportCard() {
+        this.universalCard()
+       
+            this.addressBook()
+        
+        // if (this.data.onOff || this.data.id) {
+        //     this.addressBook()
+        //     this.universalCard()
+        // } else {
+        //     wx.showToast({
+        //         title: '您尚未保存',
+        //         icon: 'none',
+        //         duration: 1000
+        //     })
+        // } 
+    },
     // 打开柳哨名片
     openProgress(tel) {
         let This = this
@@ -138,7 +262,8 @@ Page({
             url: utils.baseURL + '/card/scan/get/universalinfo',
             method: 'GET',
             data: {
-                tel: tel
+                // tel: tel
+                tel:This.data.labelCell
             },
             success(res) {
                 console.log(res);
@@ -159,7 +284,7 @@ Page({
                     })
                 } else {
                     wx.showToast({
-                        title: '没有注册通用名片',
+                        title: '没有注册柳哨名片',
                         icon: 'none',
                         duration: 1000
                     })
@@ -169,9 +294,6 @@ Page({
     },
     // 删除
     deleteUser(id) {
-        // let id = e.currentTarget.dataset.id,
-        //     This = this;
-        // console.log(e);
         let This = this
         wx.showModal({
             title: '提示',
@@ -186,7 +308,8 @@ Page({
                             'Content-Type': 'application/json'
                         },
                         data: {
-                            id: id
+                            // id: id
+                            id: This.data.labelId
                         },
                         success(res) {
                             if (res.data.code == 0) {
@@ -254,6 +377,15 @@ Page({
         let This = this
         let labelList = this.data.labelList;
         let onOff = true
+
+        if(this.data.labelVal == ''){
+            wx.showToast({
+                title: '标签不能为空',
+                icon: 'none',
+                duration: 800
+            })
+        }
+        
         labelList.map(item => {
             if (item.labelName == This.data.labelVal) {
                 wx.showToast({

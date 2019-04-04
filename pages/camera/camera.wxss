@@ -16,7 +16,7 @@
 	height: 50px;
 	display: flex;
 	align-items: center;
-	background: rgba(0, 0, 0, .7);
+	background: #a27659;
 	justify-content: center;
 	margin-left: auto;
 	/* margin-right: 32px; */
@@ -28,7 +28,7 @@
 	height: 50px;
 	display: flex;
 	align-items: center;
-	background: rgba(0, 0, 0, .7);
+	background: #a27659;
 	justify-content: center;
 	margin-left: auto;
 	/* margin-right: 32px; */
