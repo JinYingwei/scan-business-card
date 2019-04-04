@@ -16,6 +16,17 @@ Page({
 		resizeOnOff: true,
 		tempImagePath: '',
 	},
+	onShareAppMessage(res) {
+		if (res.from === 'button') {
+		  // 来自页面内转发按钮
+		  console.log(res.target)
+		}
+		return {
+		  title: '一扫相识',
+		  path: '/pages/camera/camera',
+		  imageUrl: 'http://ii.sinelinked.com/miniProgramAssets/card-zf.png',
+		}
+	},
 	// 拍照
 	takePhoto() {
 		const ctx = wx.createCameraContext()
