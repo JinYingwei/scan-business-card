@@ -2,7 +2,7 @@
 <view class='container'>
 	<view class='header'>
 		<view class="top">
-			<navigator url="../welfare/welfare"><image src="http://ii.sinelinked.com/miniProgramAssets/gy03.png" mode="widthFix"></image></navigator>
+			<navigator bindtap="openWelfare" url="../welfare/welfare"><image src="http://ii.sinelinked.com/miniProgramAssets/gy03.png" mode="widthFix"></image></navigator>
 		</view>
 		<view class='search-top'>
 			<view class='search-btn'>
@@ -17,6 +17,7 @@
 			<view class="list" wx:if="{{isChecked}}">
 				<!-- <view>个人</view>
 				<view>团队</view> -->
+				<!-- <view class="alluser" bindtap="getCardList">所有联系人</view> -->
 				<view wx:for="{{labelList}}" wx:key="item.id" data-id="{{item.id}}" bindtap="handleGetList">{{item.labelName}}</view>
 				<view class="last" bindtap="handleAddClick">+</view>
 			</view>
@@ -42,7 +43,20 @@
 		</view>
 	</view>
 	<view class='main'>
-		<scroll-view scroll-y="true" class='content'>
+		<scroll-view scroll-y="true" class='content' bindtap="handleTagHidden">
+			<view class='item' wx:for="{{searchList}}" wx:key="item">
+				<view class='initials'>{{index}}</view>
+				<view class='item-li' bindlongpress="handleShowMenu" data-id="{{item.id}}" data-cell="{{item.telCell}}" data-name="{{item.cardName}}" bindtap="getCardInfo" wx:for="{{item}}"
+				 wx:key="item">
+					<image class='user-logo' src='http://ii.sinelinked.com/miniProgramAssets/card-lg.png'></image>
+					<text class='userName'>{{item.cardName}}</text>
+					<text class='tel'>{{item.telCell}}</text>
+				</view>
+			</view>
+			<view class='tel-people' wx:if="{{searchNumber}}">{{searchNumber}}位联系人</view>
+		</scroll-view>
+
+		<scroll-view scroll-y="true" class='content' bindtap="handleTagHidden">
 			<view class='item' wx:for="{{cardList}}" wx:key="item">
 				<view class='initials'>{{index}}</view>
 				<view class='item-li' bindlongpress="handleShowMenu" data-id="{{item.id}}" data-cell="{{item.telCell}}" data-name="{{item.cardName}}" bindtap="getCardInfo" wx:for="{{item}}"
@@ -61,7 +75,8 @@
 
 	<view class="mask-show" hidden="{{menuShow}}" bindtap="handleMaskHide">
 		<view class="show-box">
-			<view><button bindtap="exportCard" open-type="getUserInfo">导出名片及通讯录</button></view>
+			<!-- <view><button bindtap="exportCard" open-type="getUserInfo">导出名片及通讯录</button></view> -->
+			<view><button bindtap="addressBook">导入通信录</button></view>
 			<view><button bindtap="openProgress">柳哨名片</button></view>
 			<view><button bindtap="deleteUser">删除名片</button></view>
 		</view>

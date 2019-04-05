@@ -103,12 +103,28 @@ Page({
         labelCell: '', //存通讯录用户手机
         labelName: '', //用户名
         menuShow: true, //mask菜单
-
+        searchList: [], //搜索列表
+        searchNumber: '' //检索后的用户数量
+    },
+    openWelfare() {
+        this.setData({
+            isChecked: false,
+            searchVal: '',
+            searchList: [],
+            searchNumber: ''
+        })
+    },
+    // 标签隐藏
+    handleTagHidden() {
+        this.setData({
+            isChecked: false
+        })
     },
     //长按显示弹框
     handleShowMenu(e) {
         this.setData({
-            menuShow: false
+            menuShow: false,
+            isChecked: false
         })
         this.data.labelCell = e.currentTarget.dataset.cell
         this.data.labelId = e.currentTarget.dataset.id
@@ -168,92 +184,92 @@ Page({
     },
 
     //导出到通用名片系统
-    universalCard() {
-        let This = this
-        let code = '';
-        wx.login({
-            success(res) {
-                if (res.code) {
-                    code = res.code
-                    wx.getSetting({
-                        success(res) {
-                            if (res.authSetting['scope.userInfo']) {
-                                // 已经授权，可以直接调用 getUserInfo 获取头像昵称
-                                let iv = '',
-                                    encryptedData;
-                                wx.getUserInfo({
-                                    success(res) {
-                                        console.log(res)
-                                        iv = res.iv
-                                        encryptedData = res.encryptedData
-                                            //拿unionId
-                                        wx.request({
-                                            url: utils.baseURL + '/card/scan/decodeOpenId',
-                                            method: 'GET',
-                                            data: {
-                                                encryptedData,
-                                                iv,
-                                                code: code
-                                            },
-                                            success(res) {
-                                                app.globalData.unionId = res.data.data.unionId
+    // universalCard() {
+    //     let This = this
+    //     let code = '';
+    //     wx.login({
+    //         success(res) {
+    //             if (res.code) {
+    //                 code = res.code
+    //                 wx.getSetting({
+    //                     success(res) {
+    //                         if (res.authSetting['scope.userInfo']) {
+    //                             // 已经授权，可以直接调用 getUserInfo 获取头像昵称
+    //                             let iv = '',
+    //                                 encryptedData;
+    //                             wx.getUserInfo({
+    //                                 success(res) {
+    //                                     console.log(res)
+    //                                     iv = res.iv
+    //                                     encryptedData = res.encryptedData
+    //                                         //拿unionId
+    //                                     wx.request({
+    //                                         url: utils.baseURL + '/card/scan/decodeOpenId',
+    //                                         method: 'GET',
+    //                                         data: {
+    //                                             encryptedData,
+    //                                             iv,
+    //                                             code: code
+    //                                         },
+    //                                         success(res) {
+    //                                             app.globalData.unionId = res.data.data.unionId
 
-                                                // let unionId = res.data.data.unionId
-                                                wx.request({
-                                                    url: utils.baseURL + '/card/scan/export/touniversal',
-                                                    method: 'POST',
-                                                    data: {
-                                                        // unionId,
-                                                        unionId: app.globalData.unionId,
-                                                        tel: This.data.labelCell
-                                                            // tel: This.data.formItem.telCell
-                                                    },
-                                                    success(res) {
-                                                        //导出通用名片
-                                                        if (res.data.code == 0) {
-                                                            wx.showToast({
-                                                                title: '导出通用名片成功',
-                                                                icon: 'success',
-                                                                duration: 1000
-                                                            })
-                                                        } else {
-                                                            wx.showToast({
-                                                                title: '您还未注册通用名片，导入失败',
-                                                                icon: 'none',
-                                                                duration: 1000
-                                                            })
-                                                        }
-                                                    }
-                                                })
-                                            }
-                                        })
-                                    }
-                                })
-                            }
-                        }
-                    })
-                }
-            }
-        })
-    },
+    //                                             // let unionId = res.data.data.unionId
+    //                                             wx.request({
+    //                                                 url: utils.baseURL + '/card/scan/export/touniversal',
+    //                                                 method: 'POST',
+    //                                                 data: {
+    //                                                     // unionId,
+    //                                                     unionId: app.globalData.unionId,
+    //                                                     tel: This.data.labelCell
+    //                                                         // tel: This.data.formItem.telCell
+    //                                                 },
+    //                                                 success(res) {
+    //                                                     //导出通用名片
+    //                                                     if (res.data.code == 0) {
+    //                                                         wx.showToast({
+    //                                                             title: '导出通用名片成功',
+    //                                                             icon: 'success',
+    //                                                             duration: 1000
+    //                                                         })
+    //                                                     } else {
+    //                                                         wx.showToast({
+    //                                                             title: '您还未注册通用名片，导入失败',
+    //                                                             icon: 'none',
+    //                                                             duration: 1000
+    //                                                         })
+    //                                                     }
+    //                                                 }
+    //                                             })
+    //                                         }
+    //                                     })
+    //                                 }
+    //                             })
+    //                         }
+    //                     }
+    //                 })
+    //             }
+    //         }
+    //     })
+    // },
 
     //导出
-    exportCard() {
-        this.universalCard()
+    // exportCard() {
+    //     this.universalCard()
 
-        this.addressBook()
+    //     this.addressBook()
 
-        // if (this.data.onOff || this.data.id) {
-        //     this.addressBook()
-        //     this.universalCard()
-        // } else {
-        //     wx.showToast({
-        //         title: '您尚未保存',
-        //         icon: 'none',
-        //         duration: 1000
-        //     })
-        // } 
-    },
+    //     // if (this.data.onOff || this.data.id) {
+    //     //     this.addressBook()
+    //     //     this.universalCard()
+    //     // } else {
+    //     //     wx.showToast({
+    //     //         title: '您尚未保存',
+    //     //         icon: 'none',
+    //     //         duration: 1000
+    //     //     })
+    //     // } 
+    // },
     // 打开柳哨名片
     openProgress(tel) {
         let This = this
@@ -332,6 +348,12 @@ Page({
         let id = e.currentTarget.dataset.id
         wx.navigateTo({
             url: '/pages/card/card?id=' + id
+        })
+        this.setData({
+            isChecked: false,
+            searchList: [],
+            searchNumber: '',
+            searchVal: ''
         })
     },
     //标签
@@ -447,9 +469,10 @@ Page({
                         n += cardListInfo[key].length
                     })
                     This.setData({
-                        cardList: cardListInfo,
-                        cardNumber: n,
-                        searchVal: ''
+                        searchList: cardListInfo,
+                        searchNumber: n,
+                        searchVal: '',
+                        isChecked: false
                     })
                 }
             }
@@ -555,7 +578,14 @@ Page({
             success(res) {
                 let { data } = res
                 let { key } = data.data.data
-
+                    // 检索为空值触发
+                if (data.code == 0 && !inpVal) {
+                    This.setData({
+                        searchList: [],
+                        searchNumber: 0
+                    })
+                    return
+                }
                 if (data.code == 0 && data.data.data.key) {
                     let n = 0
                     for (var first in key) {
@@ -563,8 +593,8 @@ Page({
                     }
 
                     This.setData({
-                        cardList: key,
-                        cardNumber: n
+                        searchList: key,
+                        searchNumber: n
                     })
                 }
             }

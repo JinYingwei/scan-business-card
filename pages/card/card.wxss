@@ -64,7 +64,6 @@
 .pic image {
     width: 100%;
     position: absolute;
-    width: 100%;
     top: -96%;
     left: 0;
     transform: rotate(-90deg);
