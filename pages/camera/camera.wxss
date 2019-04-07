@@ -1,118 +1,140 @@
 /* canvas */
-.canvasPos{
-	top: 999px;
-	display: none;
+
+.canvasPos {
+    top: 999px;
+    display: none;
 }
-.container{
-	position: relative;
+
+.container {
+    position: relative;
 }
-.card-img-box,.album-img-box{
-	position: absolute;
-	right: 30rpx;
-	z-index: 10;
+
+.pic-box {
+    width: 100rpx;
+    position: absolute;
+    top: 50%;
+    right: 10rpx;
+    z-index: 10;
+    margin-top: -200rpx;
 }
-.card-img-box{
-	width: 50px;
-	height: 50px;
-	display: flex;
-	align-items: center;
-	background: #a27659;
-	justify-content: center;
-	margin-left: auto;
-	/* margin-right: 32px; */
-	border-radius: 5px;
-	top: 50rpx;
+
+.card-img-box,
+.album-img-box {
+    /* position: absolute;
+    right: 30rpx;
+	z-index: 10; */
+    margin-bottom: 100rpx;
 }
-.album-img-box{
-	width: 50px;
-	height: 50px;
-	display: flex;
-	align-items: center;
-	background: #a27659;
-	justify-content: center;
-	margin-left: auto;
-	/* margin-right: 32px; */
-	
-	border-radius: 5px;
-	top: 200rpx;
-	
+
+.card-img-box {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    background: #a27659;
+    justify-content: center;
+    margin-left: auto;
+    /* margin-right: 32px; */
+    border-radius: 5px;
+    /* top: 100rpx; */
 }
-.card-img,.album-img{
-	transform: rotateZ(-90deg);
+
+.album-img-box {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    background: #a27659;
+    justify-content: center;
+    margin-left: auto;
+    /* margin-right: 32px; */
+    border-radius: 5px;
+    /* top: 200rpx; */
 }
-.card-img{
-	width: 43px;
-	height: 36px;
-	
+
+.card-img,
+.album-img {
+    transform: rotateZ(-90deg);
 }
-.album-img{
-	width: 43px;
-	height: 26px;
-	
+
+.card-img {
+    width: 43px;
+    height: 36px;
 }
-.takePhoto-box{
-	position: absolute;
-	left: 0;
-	right: 0;
-	margin: auto;
-	bottom: 30rpx;
-	/* text-align: center; */
-	border-radius: 50%;
-	width: 120rpx;
-	height: 120rpx;
-	background: #fff;
-}	
-.noir{
-	width: 100rpx;
-	height: 100rpx;
-	background: #000;
-	position: absolute;
-	left: 0;
-	right: 0;
-	top: 0;
-	bottom: 0;
-	margin: auto;
-	border-radius: 50%;
+
+.album-img {
+    width: 43px;
+    height: 26px;
 }
-.white{
-	width: 90rpx;
-	height: 90rpx;
-	background: #fff;
-	position: absolute;
-	left: 0;
-	right: 0;
-	top: 0;
-	bottom: 0;
-	margin: auto;
-	border-radius: 50%;
+
+.takePhoto-box {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    bottom: 30rpx;
+    /* text-align: center; */
+    border-radius: 50%;
+    width: 120rpx;
+    height: 120rpx;
+    background: #fff;
 }
-.takePhoto-box button{
-	border-radius: 50%;
-	width: 100rpx;
-	height: 100rpx;
-	background: #fff;
-	color: #fff;
+
+.noir {
+    width: 100rpx;
+    height: 100rpx;
+    background: #000;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    border-radius: 50%;
 }
-.takePhoto-box button::after{
-	border-radius: 50%;
+
+.white {
+    width: 90rpx;
+    height: 90rpx;
+    background: #fff;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    border-radius: 50%;
 }
-.content{
-	height: 100%;
-	position: relative;
+
+.takePhoto-box button {
+    border-radius: 50%;
+    width: 100rpx;
+    height: 100rpx;
+    background: #fff;
+    color: #fff;
 }
-.focus-box{
-	width: 530rpx;
-	height: 900rpx;
-	position: absolute;
-	left: 0;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	margin: auto;
+
+.takePhoto-box button::after {
+    border-radius: 50%;
 }
-.focus{
-	width: 100%;
-	
-	
-	/* margin: 0 auto; */
+
+.content {
+    height: 100%;
+    position: relative;
+}
+
+.focus-box {
+    width: 530rpx;
+    height: 900rpx;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+.focus {
+    width: 100%;
+    /* margin: 0 auto; */
 }
